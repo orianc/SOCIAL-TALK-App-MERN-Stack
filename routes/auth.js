@@ -14,6 +14,11 @@ router.get('/', async function (req, res, next) {
 	}
 });
 
+router.get('/login', (req, res) => {
+	console.log('req.session = ', { user: req.session });
+	res.send({ user: req.session || false });
+});
+
 const GENERIC_MSG_ERROR = 'Login or password is false';
 router.post('/login', (req, res) => {
 	// voir pour modifier et voir sur le même input une vérif soit du login soit de l'email

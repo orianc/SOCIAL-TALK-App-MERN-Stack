@@ -8,6 +8,7 @@ const collections = require('../collections');
 router.get('/', async (req, res, next) => {
 	try {
 		const postsList = await collections.Posts.find().lean();
+
 		console.log('GET All posts');
 		res.send(postsList);
 	} catch (error) {
