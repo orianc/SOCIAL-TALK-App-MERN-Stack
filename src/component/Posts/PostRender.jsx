@@ -9,16 +9,28 @@ const PostRender = () => {
 	]);
 	const [show, setShow] = useState(false);
 
-	useEffect(() => {
-		setTimeout(
-			() =>
-				fetch('/api/posts')
-					.then((res) => res.json())
-					.then((data) => setPost(data)),
-			5000,
-		);
-	}, [post]);
+	useEffect(
+		() => {
+			setTimeout(
+				() =>
+					fetch('/api/posts')
+						.then((res) => res.json())
+						.then((data) => setPost(data)),
+				5000,
+			);
+		},
+		[post],
+		restoreLogin(),
+	);
 
+	function restoreLogin() {
+		fetch('/api/auth/login', (data) => {
+			console.log(data);
+			if (data.user) {
+				console.log('welcome back', data.user.login);
+			}
+		});
+	}
 	return (
 		<div>
 			{post

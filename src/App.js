@@ -1,10 +1,25 @@
 import './App.css';
+import React, { useEffect } from 'react';
 import PostMain from './component/Posts/PostMain';
 import RegisterForm from './component/Auth/RegisterForm';
 import LoginForm from './component/Auth/LoginForm';
+import Profile from './component/ProfileCard';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 const App = () => {
+	useEffect(() => {
+		fetch('/api/auth/login', restoreLogin());
+	}, []);
+
+	function restoreLogin() {
+		fetch('/api/auth/login', (data) => {
+			console.log(data);
+			if (data.user) {
+				console.log('welcome back', data.user.login);
+			}
+		});
+	}
+
 	return (
 		<div className="App">
 			<Router>
@@ -50,6 +65,9 @@ const App = () => {
 								<Link className="nav-link" to="/login">
 									Login
 								</Link>
+								<Link className="nav-link" to="/profile">
+									Profile
+								</Link>
 							</div>
 						</div>
 					</div>
@@ -62,6 +80,9 @@ const App = () => {
 
 					<Route path="/login">
 						<LoginForm />
+					</Route>
+					<Route path="/profile">
+						<Profile />
 					</Route>
 
 					<Route path="/">
