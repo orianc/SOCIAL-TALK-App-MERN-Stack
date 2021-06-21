@@ -10,19 +10,20 @@ import { makeStyles } from '@material-ui/core/styles';
 // import MailIcon from '@material-ui/icons/AlternateEmailOutlined';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 
 import Input from '@material-ui/core/Input';
+import { TextField } from '@material-ui/core';
 
 // ComponentStyle
 const useStyles = makeStyles((theme) => ({
 	root: {
+		margin: theme.spacing(2, 0),
 		width: '100%',
-		maxWidth: 360,
-		backgroundColor: theme.palette.background.paper,
-		justifyContent: 'center',
 	},
-	test: {
-		justifyContent: 'space-around',
+	textfield: {
+		margin: theme.spacing(2),
 	},
 }));
 
@@ -42,40 +43,59 @@ export default function UserInfo(props) {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({ user }),
-		}).then((res) => res.json());
+		})
+			.then((res) => res.json())
+			.then((window.location.href = 'http://localhost:3000/profile'));
 	};
 
-	const newDataUser = JSON.stringify({ user });
-	console.log(JSON.stringify({ user }));
 	return (
 		<div>
-			<form className={classes.root} noValidate autoComplete="on">
-				<Input
+			<form className={classes.root} noValidate autoComplete="off">
+				<TextField
+					className={classes.textfield}
 					onChange={(event) => setDataUser({ ...user, firstName: event.currentTarget.value })}
 					defaultValue={DATA_USER.firstName}
 					inputProps={{ 'aria-label': 'first-name' }}
+					color="primary"
+					variant="outlined"
+					label="First Name"
 				/>
-				<Input
+				<TextField
+					className={classes.textfield}
+					label="Last Name"
+					variant="outlined"
 					onChange={(event) => setDataUser({ ...user, lastName: event.currentTarget.value })}
 					defaultValue={DATA_USER.lastName}
 					inputProps={{ 'aria-label': 'last-name' }}
 				/>
-				<Input
+				<TextField
+					className={classes.textfield}
+					label="E-Mail"
+					variant="outlined"
 					onChange={(event) => setDataUser({ ...user, email: event.currentTarget.value })}
 					defaultValue={DATA_USER.email}
 					inputProps={{ 'aria-label': 'email' }}
+					type="email"
 				/>
-				<Input
+
+				<TextField
+					className={classes.textfield}
+					label="Password"
+					variant="outlined"
 					onChange={(event) => setDataUser({ ...user, pw: event.currentTarget.value })}
 					defaultValue={DATA_USER.pw}
 					inputProps={{ 'aria-label': 'pw' }}
+					type="password"
 				/>
-				<Input
+				<TextField
+					className={classes.textfield}
+					label="age"
+					variant="outlined"
 					onChange={(event) => setDataUser({ ...user, age: event.currentTarget.value })}
 					defaultValue={DATA_USER.age}
 					inputProps={{ 'aria-label': 'age' }}
+					type="number"
 				/>
-
 				<CardActions>
 					<Button onClick={handlerClick} size="small" color="primary">
 						Confirm

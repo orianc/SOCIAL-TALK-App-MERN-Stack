@@ -15,19 +15,13 @@ import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles({
 	root: {
-		maxWidth: 345,
+		maxWidth: 800,
 	},
 	title: {
-		fontSize: 30,
+		fontSize: 20,
 		textTransform: 'capitalize',
 	},
 });
-
-const handlerPostNewProfile = () => {
-	// Method POST pour écraser vers la route en back
-	// les nouvelles données par dessus les anciennes,
-	//
-};
 
 export default function ImgMediaCard(props) {
 	const classes = useStyles();
@@ -37,8 +31,8 @@ export default function ImgMediaCard(props) {
 		<Card className={classes.root}>
 			<CardActionArea>
 				<CardContent>
-					<Typography gutterBottom variant="h5" component="h3" className={classes.title}>
-						{/* <Avatar src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_boy_person_people_avatar_icon_159358.png" /> */}
+					<Typography variant="h3" className={classes.title}>
+						Edit Card
 						<InfoUser data={DATA_USER} />
 					</Typography>
 				</CardContent>

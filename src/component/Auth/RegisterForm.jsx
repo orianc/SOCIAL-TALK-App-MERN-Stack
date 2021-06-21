@@ -16,7 +16,7 @@ const RegisterForm = () => {
 				body: JSON.stringify({ user }),
 			})
 			.then(console.log('JSON.stringify = ', JSON.stringify({ user })))
-			.then((window.location.href = 'http://localhost:3000/posts'));
+			.then((window.location.href = 'http://localhost:3000/login'));
 	};
 
 	return (

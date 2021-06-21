@@ -6,12 +6,16 @@ const ProfileMain = () => {
 
 	useEffect(() => {
 		restoreLogin();
+		console.log('useEffect ');
 	}, []);
 
 	function restoreLogin() {
 		fetch('/api/auth/login')
 			.then((res) => res.json())
-			.then((data) => setUser(data.user));
+			.then((data) => {
+				setUser(data.user);
+				console.log('restore log =', data.user);
+			});
 	}
 	console.log('dataUser', dataUser);
 
