@@ -30,7 +30,7 @@ router.post('/edit', async (req, res, next) => {
 			var firstName = USER_SESSION_CHANGE.firstName.trim();
 			var lastName = USER_SESSION_CHANGE.lastName.trim();
 			var pw = USER_SESSION_CHANGE.pw.trim();
-			var age = USER_SESSION_CHANGE.age.trim();
+			var age = USER_SESSION_CHANGE.age;
 
 			user.email = email;
 			user.firstName = firstName;
@@ -38,9 +38,14 @@ router.post('/edit', async (req, res, next) => {
 			user.age = age;
 			user.pw = pw;
 
-			user.save((err) => {
-				res.redirect('http://localhost:3000/profile');
+			user.save().then(() => {
+				req.session.user = user.toObject();
+				req.session.save(() => {
+					res.send({ user: req.session.user });
+				});
 			});
+			user.save();
+			//To do :  Manage redirect issue.
 		});
 		console.log('current change = ', USER_SESSION_CHANGE, 'and CURRENT DB INFO = ', USER_CURRENT_DB);
 

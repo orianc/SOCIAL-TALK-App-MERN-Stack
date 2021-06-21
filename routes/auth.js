@@ -66,7 +66,7 @@ router.post('/register', async (req, res) => {
 	console.log('coucou', firstName, lastName, pw, email);
 
 	if (!firstName || !lastName || !pw || !email) {
-		return res.status(401).send('Il manque un champs');
+		return res.status(401).send('Il manque un champs ');
 	}
 
 	try {
