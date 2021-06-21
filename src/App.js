@@ -4,6 +4,8 @@ import PostMain from './component/Posts/PostMain';
 import RegisterForm from './component/Auth/RegisterForm';
 import LoginForm from './component/Auth/LoginForm';
 import Profile from './component/ProfileCard';
+import ProfileEdit from './component/ProfileEdit';
+
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 const App = () => {
@@ -83,6 +85,9 @@ const App = () => {
 					</Route>
 					<Route path="/profile">
 						<Profile />
+					</Route>
+					<Route path="/profile-edit">
+						<ProfileEdit />
 					</Route>
 
 					<Route path="/">

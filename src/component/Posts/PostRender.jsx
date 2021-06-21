@@ -7,7 +7,7 @@ const PostRender = () => {
 			content: 'Default content',
 		},
 	]);
-	const [show, setShow] = useState(false);
+	const [dataUser, setDataUser] = useState(null);
 
 	useEffect(
 		() => {
@@ -27,9 +27,11 @@ const PostRender = () => {
 		fetch('/api/auth/login', (data) => {
 			console.log(data);
 			if (data.user) {
-				console.log('welcome back', data.user.login);
+				setDataUser(data.user);
+				console.log(data.user);
 			}
 		});
+		console.log('welcome back', dataUser);
 	}
 	return (
 		<div>

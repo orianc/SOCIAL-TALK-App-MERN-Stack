@@ -18,6 +18,8 @@ const RegisterForm = () => {
 			.then((res) => res.json())
 			.then((data) => setUser(data.user))
 			.then((window.location.href = 'http://localhost:3000/posts'));
+
+		// TRAITER ERREUR LOGIN
 	};
 
 	return (
