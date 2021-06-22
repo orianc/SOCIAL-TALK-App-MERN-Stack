@@ -9,10 +9,10 @@ export default function Nav(props) {
 	console.log(DATA_SESSION_USER);
 	return (
 		<Router>
-			<nav className="navbar navbar-expand-lg bg-light sticky-top">
+			<nav className="navbar navbar-expand-lg bg-white sticky-top">
 				<div className="container">
 					<Link className="navbar-brand" to="/posts">
-						<h4 className=" text-dark">
+						<h4 className="text-dark">
 							SocialTalk
 							<svg
 								className="text-primary mx-3 bi bi-chat-quote-fill App-logo"

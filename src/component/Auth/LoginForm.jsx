@@ -23,30 +23,26 @@ const RegisterForm = () => {
 	};
 
 	return (
-		<div className=" my-3 p-3 bg-secondary rounded ">
-			<div className="mb-3 p-3 text-white rounded bg-primary">
-				<h5>Connection</h5>
+		<div className=" my-3 p-3 bg-light rounded ">
+			<div className=" p-1 text-center">
+				<h6 className="">Connect your account</h6>
 			</div>
-			<form className="text-white">
-				<div className="text-white mb-3">
-					<label className="form-label" htmlFor="emailInput">
-						Email
-					</label>
+			<form className="text-secondary">
+				<div className="mb-3">
 					<input
 						onChange={(event) => setUser({ ...user, email: event.currentTarget.value })}
 						className="form-control form-control-sm"
 						type="email"
+						placeholder="email"
 						name="emailInput"
 					/>
 				</div>
 
 				<div className="mb-3">
-					<label className="form-label" htmlFor="pwInput">
-						Password
-					</label>
 					<input
 						onChange={(event) => setUser({ ...user, pw: event.currentTarget.value })}
 						className="form-control form-control-sm"
+						placeholder="password"
 						type="password"
 						name="pwInput"
 					/>

@@ -20,28 +20,24 @@ const RegisterForm = () => {
 	};
 
 	return (
-		<div className=" my-3 p-3 bg-light rounded">
-			<div className="mb-3 p-3 text-white rounded bg-primary">
-				<h5>Register</h5>
+		<div className=" my-3 p-3 rounded">
+			<div className=" p-1 text-center">
+				<h6 className="">Create an account</h6>
 			</div>
 			<form>
 				<div className="mb-3">
-					<label className="form-label" htmlFor="emailInput">
-						Email
-					</label>
 					<input
 						onChange={(event) => setUser({ ...user, email: event.currentTarget.value })}
 						className="form-control form-control-sm"
 						type="email"
+						placeholder="email"
 						name="emailInput"
 					/>
 				</div>
 				<div className="mb-3">
-					<label className="form-label" htmlFor="firstNameInput">
-						First Name
-					</label>
 					<input
 						onChange={(event) => setUser({ ...user, firstName: event.currentTarget.value })}
+						placeholder="first name"
 						className="form-control form-control-sm"
 						type="text"
 						name="firstNameInput"
@@ -49,30 +45,26 @@ const RegisterForm = () => {
 				</div>
 
 				<div className="mb-3">
-					<label className="form-label" htmlFor="lastNameInput">
-						Last Name
-					</label>
 					<input
 						onChange={(event) => setUser({ ...user, lastName: event.currentTarget.value })}
 						className="form-control form-control-sm"
 						type="text"
+						placeholder="last name"
 						name="lastNameInput"
 					/>
 				</div>
 
 				<div className="mb-3">
-					<label className="form-label" htmlFor="pwInput">
-						Password
-					</label>
 					<input
 						onChange={(event) => setUser({ ...user, pw: event.currentTarget.value })}
 						className="form-control form-control-sm"
+						placeholder="password"
 						type="password"
 						name="pwInput"
 					/>
 				</div>
 
-				<button onClick={handlerNewUser} className="btn btn-sm btn-primary" type="submit">
+				<button onClick={handlerNewUser} className="btn btn-sm btn-outline-primary" type="submit">
 					Sign in
 				</button>
 			</form>
