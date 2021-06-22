@@ -5,6 +5,7 @@ import RegisterForm from './component/Auth/RegisterForm';
 import LoginForm from './component/Auth/LoginForm';
 import Profile from './component/ProfileCard';
 import ProfileEdit from './component/ProfileEdit';
+import Auth from './component/Auth';
 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
@@ -61,8 +62,8 @@ const App = () => {
 								<Link className="nav-link" to="/posts">
 									Talk
 								</Link>
-								<Link className="nav-link" to="/register">
-									Register
+								<Link className="nav-link" to="/auth">
+									Auth
 								</Link>
 								<Link className="nav-link" to="/login">
 									Login
@@ -76,11 +77,12 @@ const App = () => {
 				</nav>
 
 				<Switch>
-					<Route path="/register">
-						<RegisterForm />
+					<Route path="/auth">
+						<Auth />
 					</Route>
 
 					<Route path="/login">
+						<RegisterForm />
 						<LoginForm />
 					</Route>
 					<Route path="/profile">

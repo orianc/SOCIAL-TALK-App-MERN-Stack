@@ -23,12 +23,12 @@ const RegisterForm = () => {
 	};
 
 	return (
-		<div className="container w-50 my-3 p-3 bg-light rounded">
+		<div className=" my-3 p-3 bg-secondary rounded ">
 			<div className="mb-3 p-3 text-white rounded bg-primary">
-				<h5>Welcome back Talker !</h5>
+				<h5>Connection</h5>
 			</div>
-			<form>
-				<div className="mb-3">
+			<form className="text-white">
+				<div className="text-white mb-3">
 					<label className="form-label" htmlFor="emailInput">
 						Email
 					</label>

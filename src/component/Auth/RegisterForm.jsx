@@ -20,9 +20,9 @@ const RegisterForm = () => {
 	};
 
 	return (
-		<div className="container w-50 my-3 p-3 bg-light rounded">
+		<div className=" my-3 p-3 bg-light rounded">
 			<div className="mb-3 p-3 text-white rounded bg-primary">
-				<h5>Welcome !</h5>
+				<h5>Register</h5>
 			</div>
 			<form>
 				<div className="mb-3">
@@ -73,7 +73,7 @@ const RegisterForm = () => {
 				</div>
 
 				<button onClick={handlerNewUser} className="btn btn-sm btn-primary" type="submit">
-					Submit
+					Sign in
 				</button>
 			</form>
 		</div>
