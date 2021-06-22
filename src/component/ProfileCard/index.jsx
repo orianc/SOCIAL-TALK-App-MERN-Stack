@@ -6,7 +6,6 @@ const ProfileMain = () => {
 
 	useEffect(() => {
 		restoreLogin();
-		console.log('useEffect ');
 	}, []);
 
 	function restoreLogin() {

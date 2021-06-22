@@ -20,19 +20,18 @@ const PostRender = () => {
 			);
 		},
 		[post],
-		restoreLogin(),
+		// restoreLogin(),
 	);
 
-	function restoreLogin() {
-		fetch('/api/auth/login', (data) => {
-			console.log(data);
-			if (data.user) {
-				setDataUser(data.user);
-				console.log(data.user);
-			}
-		});
-		console.log('welcome back', dataUser);
-	}
+	// function restoreLogin() {
+	// 	fetch('/api/auth/login', (data) => {
+	// 		console.log(data);
+	// 		if (data.user) {
+	// 			setDataUser(data.user);
+	// 			console.log(data.user);
+	// 		}
+	// 	});
+	// 	console.log('welcome back', dataUser);}
 	return (
 		<div>
 			{post
