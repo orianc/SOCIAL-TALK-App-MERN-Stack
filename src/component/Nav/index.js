@@ -6,7 +6,6 @@ import Avatar from '../ProfileCard/Avatar';
 
 export default function Nav(props) {
 	const DATA_SESSION_USER = props.dataUser.session;
-	console.log(DATA_SESSION_USER);
 	return (
 		<Router>
 			<nav className="navbar navbar-expand-lg bg-white sticky-top">
@@ -56,7 +55,7 @@ export default function Nav(props) {
 
 			<Switch>
 				<Route path="/posts">
-					<PostMain />
+					<PostMain dataUser={DATA_SESSION_USER} />
 				</Route>
 				<Route path="/profile">
 					<Profile />

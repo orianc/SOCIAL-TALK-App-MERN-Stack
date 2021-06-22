@@ -18,7 +18,6 @@ const useStyles = makeStyles({
 	},
 	title: {
 		fontSize: 30,
-		textTransform: 'capitalize',
 	},
 	display: {
 		backgroundColor: 'blue',

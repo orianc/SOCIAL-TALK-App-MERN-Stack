@@ -6,7 +6,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from './Avatar';
 import ProfileIcon from '@material-ui/icons/RecordVoiceOverRounded';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import MailIcon from '@material-ui/icons/AlternateEmailOutlined';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,23 +35,16 @@ export default function FolderList(props) {
 
 			<ListItem>
 				<ListItemAvatar>
-					<ProfileIcon />
-				</ListItemAvatar>
-				<ListItemText primary="Age" secondary={DATA_USER.age} />
-			</ListItem>
-
-			<ListItem>
-				<ListItemAvatar>
-					<VpnKeyIcon />
-				</ListItemAvatar>
-				<ListItemText primary="Password" secondary={DATA_USER.pw} />
-			</ListItem>
-
-			<ListItem>
-				<ListItemAvatar>
 					<MailIcon />
 				</ListItemAvatar>
 				<ListItemText primary="Mail" secondary={DATA_USER.email} />
+			</ListItem>
+
+			<ListItem>
+				<ListItemAvatar>
+					<ProfileIcon />
+				</ListItemAvatar>
+				<ListItemText primary="Age" secondary={DATA_USER.age} />
 			</ListItem>
 		</List>
 	);

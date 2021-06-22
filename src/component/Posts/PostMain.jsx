@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import PostRender from './PostRender';
 import PostForm from './PostForm';
 
-const PostMain = () => {
+const PostMain = (props) => {
+	const DATA_SESSION_USER = props.dataUser;
+
 	return (
 		<div className="container">
-			<PostForm />
+			<PostForm dataUser={DATA_SESSION_USER} />
 			<PostRender />
 		</div>
 	);
