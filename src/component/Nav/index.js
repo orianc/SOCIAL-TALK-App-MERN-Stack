@@ -5,6 +5,12 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Avatar from '../ProfileCard/Avatar';
 
 export default function Nav(props) {
+	const Logout = () => {
+		fetch('/api/auth/logout')
+			.then((res) => res.json())
+			.then((window.location.href = 'http://localhost:3000'));
+	};
+
 	const DATA_SESSION_USER = props.dataUser.session;
 	return (
 		<Router>
@@ -48,6 +54,7 @@ export default function Nav(props) {
 								<Avatar src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_boy_person_people_avatar_icon_159358.png">Test</Avatar>
 								{DATA_SESSION_USER.firstName} {DATA_SESSION_USER.lastName}
 							</Link>
+							<Link onClick={Logout}>Logout</Link>
 						</div>
 					</div>
 				</div>

@@ -42,7 +42,9 @@ const PostRender = () => {
 						<div className="row flex-column">
 							<div className="d-flex ">
 								<img className="rounded-pill mx-3" src="./logo512.png" alt="" height="30px" width="30px" />
-								<h5>UserName</h5>
+								<h5>
+									{p.firstName_User} {p.lastName_User}
+								</h5>
 							</div>
 							<div className="text-left m-2">
 								<p className="">{p.content}</p>

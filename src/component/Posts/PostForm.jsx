@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import PostRender from './PostRender';
 
 const Post = (props) => {
+	const DATA_SESSION_USER = props.dataUser;
 	const [post, setPost] = useState({
+		id_User: DATA_SESSION_USER._id,
+		firstName_User: DATA_SESSION_USER.firstName,
+		lastName_User: DATA_SESSION_USER.lastName,
 		content: '',
 	});
-	const DATA_SESSION_USER = props.dataUser;
-	// console.log(JSON.stringify({ post }));
+	console.log(JSON.stringify({ post }));
 
 	const handlerNewPost = async (e) => {
 		e.preventDefault();

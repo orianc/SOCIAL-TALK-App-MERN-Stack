@@ -3,22 +3,21 @@ import React, { useState } from 'react';
 const RegisterForm = () => {
 	const [user, setUser] = useState({});
 
-	console.log('user direct = ', user);
-
 	const handlerNewUser = async (e) => {
 		e.preventDefault();
-		await window
-			.fetch('/api/auth/register', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ user }),
-			})
-			.then(console.log('JSON.stringify = ', JSON.stringify({ user })))
-			.then((window.location.href = 'http://localhost:3000/login'));
+		await window.fetch('/api/auth/register', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ user }),
+		});
+		if (user.email && user.pw && user.firstName && user.lastName) {
+			return alert('You can login now.');
+		}
+		return alert('miss some field completion :(');
 	};
-
+	// Re-work catch error on register
 	return (
 		<div className=" my-3 p-3 rounded">
 			<div className=" p-1 text-center">
