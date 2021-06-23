@@ -57,13 +57,17 @@ router.post('/login', (req, res) => {
 	}
 });
 
+router.get('/logout', (req, res) => {
+	req.session.destroy((err) => {
+		res.redirect('/');
+	});
+});
+
 router.post('/register', async (req, res) => {
 	const firstName = (req.body.user.firstName || '').toString();
 	const lastName = (req.body.user.lastName || '').toString();
 	const email = (req.body.user.email || '').toString();
 	const pw = (req.body.user.pw || '').toString();
-
-	console.log('coucou', firstName, lastName, pw, email);
 
 	if (!firstName || !lastName || !pw || !email) {
 		return res.status(401).send('Il manque un champs ');

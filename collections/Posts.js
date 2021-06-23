@@ -5,9 +5,11 @@ const autoIncrement = require('mongoose-auto-increment');
 const mongooseLeanId = require('mongoose-lean-id');
 
 const PostSchema = new Schema({
-	id_User: { type: ObjectId, require: true },
+	id_User: { type: Number, require: true },
+	firstName_User: { type: String },
+	lastName_User: { type: String },
 	content: { type: String, require: true },
-	postTime: { type: Date, default: Date.now() },
+	postTime: { type: Date, default: Date },
 });
 
 PostSchema.plugin(autoIncrement.plugin, 'Post');

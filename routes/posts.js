@@ -20,15 +20,24 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res) => {
 	console.log('Route POST asked');
 
+	const id_User = req.body.post.id_User;
+	const firstName_User = req.body.post.firstName_User;
+	const lastName_User = req.body.post.lastName_User;
+	const content = req.body.post.content;
+
+	console.log('le req body donne : ', id_User, firstName_User, lastName_User, content);
+
 	try {
 		const newPost = await collections.Posts.create({
-			content: req.body.post.content,
+			id_User,
+			firstName_User,
+			lastName_User,
+			content,
 		});
-		console.log('Poste create');
 		res.send('New post create');
 	} catch (error) {
-		console.error('New post creation failled', error);
-		res.status(500).send('Post creatione error');
+		console.error('New post creation failed', error);
+		res.status(500).send('Post creation error');
 	}
 });
 
