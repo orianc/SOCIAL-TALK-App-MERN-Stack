@@ -8,7 +8,6 @@ const collections = require('../collections');
 router.get('/', async (req, res, next) => {
 	try {
 		const postsList = await collections.Posts.find().lean();
-
 		console.log('GET All posts');
 		res.send(postsList);
 	} catch (error) {
@@ -20,19 +19,23 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res) => {
 	console.log('Route POST asked');
 
-	const id_User = req.body.post.id_User;
-	const firstName_User = req.body.post.firstName_User;
-	const lastName_User = req.body.post.lastName_User;
-	const content = req.body.post.content;
+	const USER_DATA = req.body.post.DATA_USER;
+	const USER_ID = USER_DATA._id;
+	const USER_FIRST_NAME = USER_DATA.firstName;
+	const USER_LAST_NAME = USER_DATA.lastName;
 
-	console.log('le req body donne : ', id_User, firstName_User, lastName_User, content);
+	const POST_CONTENT = req.body.post.content;
+
+	// console.log('le req body donne : ', USER_DATA);
 
 	try {
 		const newPost = await collections.Posts.create({
-			id_User,
-			firstName_User,
-			lastName_User,
-			content,
+			content: POST_CONTENT,
+			userInformation: {
+				_id: USER_ID,
+				firstName: USER_FIRST_NAME,
+				lastName: USER_LAST_NAME,
+			},
 		});
 		res.send('New post create');
 	} catch (error) {
