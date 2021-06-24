@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { CircularProgress } from '@material-ui/core';
 import CommentMain from './Comments/CommentMain';
 
 const PostRender = () => {
-	const [post, setPost] = useState([
-		{
-			content: 'Default content',
-		},
-	]);
+	const [post, setPost] = useState(null);
 	const [dataUser, setDataUser] = useState(null);
 
 	useEffect(() => {
@@ -15,10 +12,12 @@ const PostRender = () => {
 				fetch('/api/posts')
 					.then((res) => res.json())
 					.then((data) => setPost(data)),
-			5000,
+			3000,
 		);
 	}, [post]);
-	console.log('DATA USER = ', dataUser, 'and DATA_POST = ', post);
+	// console.log('DATA USER = ', dataUser, 'and DATA_POST = ', post);
+
+	if (post == null) return <CircularProgress color={'secondary'} thickness={1} size={40} />;
 
 	return (
 		<div>
