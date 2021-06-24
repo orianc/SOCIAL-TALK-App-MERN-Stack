@@ -9,29 +9,17 @@ const PostRender = () => {
 	]);
 	const [dataUser, setDataUser] = useState(null);
 
-	useEffect(
-		() => {
-			setTimeout(
-				() =>
-					fetch('/api/posts')
-						.then((res) => res.json())
-						.then((data) => setPost(data)),
-				5000,
-			);
-		},
-		[post],
-		// restoreLogin(),
-	);
+	useEffect(() => {
+		setTimeout(
+			() =>
+				fetch('/api/posts')
+					.then((res) => res.json())
+					.then((data) => setPost(data)),
+			5000,
+		);
+	}, [post]);
+	console.log('DATA USER = ', dataUser, 'and DATA_POST = ', post);
 
-	// function restoreLogin() {
-	// 	fetch('/api/auth/login', (data) => {
-	// 		console.log(data);
-	// 		if (data.user) {
-	// 			setDataUser(data.user);
-	// 			console.log(data.user);
-	// 		}
-	// 	});
-	// 	console.log('welcome back', dataUser);}
 	return (
 		<div>
 			{post
@@ -43,7 +31,7 @@ const PostRender = () => {
 							<div className="d-flex ">
 								<img className="rounded-pill mx-3" src="./logo512.png" alt="" height="30px" width="30px" />
 								<h5>
-									{p.firstName_User} {p.lastName_User}
+									{p.userInformation.firstName} {p.userInformation.lastName}
 								</h5>
 							</div>
 							<div className="text-left m-2">
