@@ -48,23 +48,6 @@ router.post('/edit', async (req, res, next) => {
 			//To do :  Manage redirect issue.
 		});
 		console.log('current change = ', USER_SESSION_CHANGE, 'and CURRENT DB INFO = ', USER_CURRENT_DB);
-
-		// const DB_USER_ID = collections.Users.find((user) => {
-		// 	user._id === USER_ID;
-		// });
-
-		// const newData = {
-		// 	_id: DB_USER_ID,
-		// 	firstName: (req.body.newDataUser.firstName || '').toString(),
-		// 	lastName: (req.body.newDataUser.lastName || '').toString(),
-		// 	email: (req.body.newDataUser.email || '').toString(),
-		// 	pw: (req.body.newDataUser.pw || '').toString(),
-		// };
-
-		// DB_USER_ID.console.log('userId = ', USER_ID);
-		// console.log('Find DB User = ', DB_USER_ID);
-
-		// res.send(USER_SESSION);
 	} catch (error) {
 		console.error('fail to get session user : ', error);
 		res.status(500)('Error ');

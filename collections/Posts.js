@@ -7,20 +7,23 @@ const mongooseLeanId = require('mongoose-lean-id');
 const PostSchema = new Schema({
 	content: { type: String, require: true },
 	postTime: { type: Date, default: Date },
+
 	userInformation: {
 		_id: { type: Number, require: true },
 		firstName: { type: String },
 		lastName: { type: String },
 	},
-	comment: {
-		content: { type: String },
-		userInformation: {
-			_id: { type: Number },
-			firstName: { type: String },
-			lastName: { type: String },
-		},
-	},
+	comments: [],
 });
+// {
+// 	_id: { type: Number, require: true },
+// 	content: { type: String },
+// 	userInformation: {
+// 		_id: { type: Number },
+// 		firstName: { type: String },
+// 		lastName: { type: String },
+// 	},
+// },
 
 PostSchema.plugin(autoIncrement.plugin, 'Post');
 PostSchema.plugin(mongooseLeanId);
