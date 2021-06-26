@@ -58,7 +58,7 @@ router.post('/add-comment', async (req, res) => {
 		var USER_ID = USER_DATA._id;
 		var USER_FIRST_NAME = USER_DATA.firstName;
 		var USER_LAST_NAME = USER_DATA.lastName;
-		var COMMENT_CONTENT = req.body.comment.content.trim();
+		var COMMENT_CONTENT = req.body.comment.COMMENT_CONTENT.trim();
 		const newComment = {
 			userInformation: {
 				USER_ID,
@@ -69,7 +69,7 @@ router.post('/add-comment', async (req, res) => {
 		};
 		post.comments.push(newComment);
 		post.save().then(() => {
-			res.send({ result: newComment });
+			res.send({ result: newComment }).then(() => res.redirect('/posts'));
 		});
 		//To do :  Manage redirect issue.
 	});
