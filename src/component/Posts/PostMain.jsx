@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PostRender from './PostRender';
+import PostRenderV2 from './PostRenderv2';
 import PostForm from './PostForm';
 
 const PostMain = (props) => {
@@ -8,7 +9,8 @@ const PostMain = (props) => {
 	return (
 		<div className="container">
 			<PostForm dataUser={DATA_SESSION_USER} />
-			<PostRender />
+			{/* <PostRender dataUser={DATA_SESSION_USER} /> */}
+			<PostRenderV2 dataUser={DATA_SESSION_USER} />
 		</div>
 	);
 };

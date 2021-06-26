@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PostRender from './PostRender';
 
 const Post = (props) => {
 	const DATA_SESSION_USER = props.dataUser;

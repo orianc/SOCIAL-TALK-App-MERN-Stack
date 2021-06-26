@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { CircularProgress } from '@material-ui/core';
-import CommentMain from './Comments/CommentMain';
+import CommentForm from './Comments/CommentForm';
 
-const PostRender = () => {
+const PostRender = (props) => {
 	const [post, setPost] = useState(null);
-	const [dataUser, setDataUser] = useState(null);
+	const dataUser = props.dataUser;
 
 	useEffect(() => {
 		setTimeout(
@@ -12,7 +12,7 @@ const PostRender = () => {
 				fetch('/api/posts')
 					.then((res) => res.json())
 					.then((data) => setPost(data)),
-			3000,
+			5000,
 		);
 	}, [post]);
 	// console.log('DATA USER = ', dataUser, 'and DATA_POST = ', post);
@@ -39,7 +39,7 @@ const PostRender = () => {
 							</div>
 						</div>
 						<div className="d-flex justify-content-end">
-							<CommentMain />
+							<CommentForm dataUser={dataUser} PostId={p._id} />
 						</div>
 					</div>
 				))}
