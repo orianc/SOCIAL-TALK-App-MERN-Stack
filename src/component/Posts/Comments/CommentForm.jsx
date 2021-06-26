@@ -9,6 +9,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import { LaptopWindows } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
 	margin: {
@@ -51,7 +52,7 @@ const Comment = (props) => {
 			<FormControl className={classes.margin}>
 				<InputLabel htmlFor="input-with-icon-adornment">Comment</InputLabel>
 				<Input
-					onChange={(event) => setComment({ ...comment, content: event.currentTarget.value })}
+					onChange={(event) => setComment({ ...comment, COMMENT_CONTENT: event.currentTarget.value })}
 					id="input-with-icon-adornment"
 					placeholder="Comment here..."
 					rows="2"

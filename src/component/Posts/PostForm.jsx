@@ -20,7 +20,7 @@ const Post = (props) => {
 	};
 
 	return (
-		<div className="container m-sm-5 m-2 py-4 px-5 text-right">
+		<div className="container m-sm-5 m-2 py-4">
 			<div className="row flex-column">
 				<div className="d-flex">
 					<img className="rounded-pill mx-3" src="./logo512.png" alt="" height="30px" width="30px" />
@@ -37,8 +37,8 @@ const Post = (props) => {
 						rows="2"
 						placeholder={'Hi ' + DATA_SESSION_USER.firstName + ' , write something cool here !'}
 					></textarea>
-					<button onClick={handlerNewPost} type="submit" className="btn btn-outline-primary btn-sm">
-						Send
+					<button onClick={handlerNewPost} type="submit" className="btn btn-sm text-primary">
+						Post
 						<span class="material-icons">send</span>
 					</button>
 				</div>

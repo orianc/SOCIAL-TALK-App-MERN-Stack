@@ -11,9 +11,9 @@ export default function Auth(props) {
 	}
 
 	return (
-		<Container className="">
-			<Row>
-				<Button variant="bg-white" size="lg" className="m-5 p-5" onClick={() => handleShow()}>
+		<Container className="vh-100 d-flex justify-content-center">
+			<div className="row ">
+				<Button variant="bg-white" size="lg" className="" onClick={() => handleShow()}>
 					<h6 className=" text-secondary mb-4 ">Welcome</h6>
 					<h1 className="fs-1 text-dark">
 						SocialTalk
@@ -48,23 +48,23 @@ export default function Auth(props) {
 					</svg>
 				</Button>
 				<Modal show={show} onHide={() => setShow(false)}>
-					<Modal.Header>
-						<Modal.Title>Connect or create an account</Modal.Title>
+					<Modal.Header className="bg-primary text-white justify-content-center">
+						<Modal.Title>Authenticator</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
 						<Container>
 							<Row>
-								<Col lg xs={6}>
+								<Col lg xs={12}>
 									<LoginForm />
 								</Col>
-								<Col lg xs={6}>
+								<Col lg xs={12}>
 									<RegisterForm />
 								</Col>
 							</Row>
 						</Container>
 					</Modal.Body>
 				</Modal>
-			</Row>
+			</div>
 		</Container>
 	);
 }

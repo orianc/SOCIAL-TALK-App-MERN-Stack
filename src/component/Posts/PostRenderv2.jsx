@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Container } from '@material-ui/core';
 import CommentForm from './Comments/CommentForm';
 import Comments from './Comments/Comments';
 
@@ -19,12 +19,14 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Box from '@material-ui/core/Box';
+import { auto } from 'async';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		maxWidth: 345,
 		marginTop: 20,
-		marginBottom: 20,
+		marginBottom: 40,
 	},
 	media: {
 		height: 0,
@@ -67,54 +69,62 @@ export default function RecipeReviewCard(props) {
 		setExpanded(!expanded);
 	};
 	if (post == null) return <CircularProgress color={'secondary'} thickness={1} size={40} />;
-
+	// console.log(post[0].comments[0].userInformation.USER_FIRST_NAME);
 	return (
-		<div className="container">
+		<div className="container ">
 			{post
 				.slice(0)
 				.reverse()
 				.map((p) => (
 					<Card key={p._id} className={classes.root}>
 						<CardHeader
+							align="left"
 							avatar={<Avatar aria-label="recipe" className={classes.avatar}></Avatar>}
-							title={p.userInformation.firstName + ' ' + p.userInformation.lastName}
+							title={
+								<Typography align="left" variant="button">
+									{p.userInformation.firstName + ' ' + p.userInformation.lastName}
+								</Typography>
+							}
 							subheader={p.postTime}
 						/>
 						{/* <CardMedia className={classes.media} image="/static/images/cards/paella.jpg" title="Paella dish" /> */}
-						<CardContent className="text-center justify-content-center">
-							<Typography component="p">{p.content}</Typography>
-							<CommentForm className="text-center justify-content-center mx-auto" />
-						</CardContent>
-						<CardActions disableSpacing>
-							{/* <IconButton aria-label="add to favorites">
-								<FavoriteIcon />
-							</IconButton>
-							<IconButton aria-label="share">
-								<ShareIcon />
-							</IconButton> */}
+						<Box bgcolor="info.main" className="rounded mx-3" color="secondary.contrastText">
+							<CardContent className="  text-start justify-content">
+								<Typography variant="body2" component="p">
+									{p.content}
+								</Typography>
+							</CardContent>
+						</Box>
+						<div className=" ">
+							<CardActions className="pb-0">
+								<IconButton
+									className={clsx(classes.expand, {
+										[classes.expandOpen]: expanded,
+									})}
+									aria-label="show more"
+								>
+									<p className="fs-6 px-2 m-0">Read Comment</p>
+									<ExpandMoreIcon />
+								</IconButton>
+							</CardActions>
 
-							<IconButton
-								className={clsx(classes.expand, {
-									[classes.expandOpen]: expanded,
-								})}
-								onClick={handleExpandClick}
-								aria-expanded={expanded}
-								aria-label="show more"
-							>
-								<p className="fs-6 px-2 m-0">Read Comment</p>
-								<ExpandMoreIcon />
-							</IconButton>
-						</CardActions>
-						<Collapse in={expanded} timeout="auto" unmountOnExit>
-							{p.comments.map((c) => (
-								<CardContent>
-									<Typography paragraph>
-										{c.content}
-										{/* <Comments data={c} /> */}
-									</Typography>
-								</CardContent>
-							))}
-						</Collapse>
+							<div style={{ height: 110 }} className="mx-1 overflow-scroll">
+								{p.comments.map((c) => (
+									<div className="bg-light p-2">
+										<Typography className="px-2" align="left" variant="subtitle2">
+											{c.userInformation.USER_FIRST_NAME} {c.userInformation.USER_LAST_NAME}
+										</Typography>
+
+										<Box className="rounded" bgcolor="info.main" color="secondary.contrastText">
+											<Typography className=" rounded p-2" align="left" variant="body2">
+												{c.comment_content}
+											</Typography>
+										</Box>
+									</div>
+								))}
+							</div>
+							<CommentForm dataUser={dataUser} PostId={p._id} />
+						</div>
 					</Card>
 				))}
 		</div>

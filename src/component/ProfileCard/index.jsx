@@ -22,8 +22,8 @@ const ProfileMain = () => {
 		return <div>Profil loading..</div>;
 	}
 	return (
-		<div className="container mt-5">
-			<div className="row justify-content-center">
+		<div className="container align-items-center justify-content-center vh-100 d-flex">
+			<div className="row">
 				<Content data={dataUser}></Content>
 			</div>
 		</div>

@@ -25,7 +25,7 @@ const RegisterForm = () => {
 	return (
 		<div className=" my-3 p-3 bg-light rounded ">
 			<div className=" p-1 text-center">
-				<h6 className="">Connect your account</h6>
+				<h6 className="">Connection</h6>
 			</div>
 			<form className="text-secondary">
 				<div className="mb-3">
