@@ -2,10 +2,10 @@
 
 const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
+const cookieParser = require('cookie-parser');
+const path = require('path');
+const fs = require('fs');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const cors = require('cors');

@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const autoIncrement = require('mongoose-auto-increment');
 const mongooseLeanId = require('mongoose-lean-id');
-
 const UserSchema = new Schema(
 	{
 		firstName: { type: String, require: true },
@@ -10,7 +9,7 @@ const UserSchema = new Schema(
 		age: { type: Number, default: 0 },
 		email: { type: String, require: true, unique: true },
 		pw: { type: String, require: true },
-		picture: { type: Buffer, contentType: String, default: null },
+		picture: { data: Buffer, contentType: String },
 	},
 	{ timestamps: true },
 );
