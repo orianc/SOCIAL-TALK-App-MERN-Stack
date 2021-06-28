@@ -10,6 +10,8 @@ import { makeStyles } from '@material-ui/core/styles';
 // import MailIcon from '@material-ui/icons/AlternateEmailOutlined';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
+
+import ImageUploader from './ImageUpload';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 
@@ -32,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 export default function UserInfo(props) {
 	const classes = useStyles();
 	const DATA_USER = props.data;
-	console.log('props= ', DATA_USER);
 	const [user, setDataUser] = useState(DATA_USER);
 
 	const handlerClick = (e) => {
@@ -51,6 +52,8 @@ export default function UserInfo(props) {
 	return (
 		<div>
 			<form className={classes.root} noValidate autoComplete="off">
+				<ImageUploader dataSession={user} withIcon={false} buttonText="Change Profile Picture" singleImage={true} />
+
 				<TextField
 					className={classes.textfield}
 					onChange={(event) => setDataUser({ ...user, firstName: event.currentTarget.value })}
