@@ -19,13 +19,16 @@ const fs = require('fs');
 // 		res.status(500)('Error ');
 // 	}
 // });
+var currentDate = new Date();
+var dateString = currentDate.toDateString();
+var cleanDate = dateString.replace(/\s/g, '-');
 
 var storage = multer.diskStorage({
 	destination: (req, file, cb) => {
 		cb(null, '../Client/public/uploads/');
 	},
 	filename: (req, file, cb) => {
-		cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
+		cb(null, cleanDate + file.originalname);
 	},
 });
 
@@ -74,29 +77,30 @@ router.post('/uploadAvatar', upload.single('picture'), (req, res, next) => {
 	try {
 		const USER_SESSION_CHANGE = req.session.user;
 		console.log('isLogged ?', USER_SESSION_CHANGE);
+		// if (USER_SESSION_CHANGE === undefined) {
+		// 	res.redirect('/');
+		// }
 		const USER_CURRENT_DB = collections.Users.findById(USER_SESSION_CHANGE._id, (err, user) => {
 			console.log('USER FIND =', user);
 			if (!user) {
 				res.send('error', 'No Account');
-				return res.redirect('/login');
+				res.redirect('/');
 			}
 
-			// console.log(req.file);
-			// var picture = fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.name));
-			user.picture = req.file.originalname;
+			user.picture = cleanDate + req.file.originalname;
 
 			user.save().then(() => {
 				req.session.user = user.toObject();
 				req.session.save(() => {
-					res.send({ user: req.session.user });
+					res.redirect('profile/edit');
+
+					// res.send({ user: req.session.user });
 				});
 			});
-			user.save();
-			// res.redirect('/profile');
 		});
 	} catch (error) {
-		console.error('fail to get session user : ', error);
-		res.send('Error ', error);
+		res.redirect('http://localhost:3000');
+		console.error('Session expire, Please reconnect : ', error);
 	}
 });
 
