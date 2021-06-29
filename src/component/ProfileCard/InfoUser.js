@@ -24,7 +24,6 @@ export default function FolderList(props) {
 	const classes = useStyles();
 	const DATA_USER = props.data;
 	const DATA_USER_FULL_NAME = DATA_USER.firstName + ' ' + DATA_USER.lastName;
-	console.log('props= ', DATA_USER);
 
 	return (
 		<List className={classes.root}>

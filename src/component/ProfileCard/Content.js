@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import InfoUser from './InfoUser';
-import CardEdit from '../ProfileEdit';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -28,7 +26,6 @@ const useStyles = makeStyles({
 export default function ImgMediaCard(props) {
 	const classes = useStyles();
 	const DATA_USER = props.data.user;
-	console.log('props in content = ', DATA_USER);
 	return (
 		<Card className={classes.root}>
 			<CardActionArea>

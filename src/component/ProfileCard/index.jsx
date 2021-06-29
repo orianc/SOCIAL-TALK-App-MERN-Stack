@@ -16,7 +16,6 @@ const ProfileMain = () => {
 				console.log('restore log =', data.user);
 			});
 	}
-	console.log('dataUser', dataUser);
 
 	if (dataUser == null) {
 		return <div>Profil loading..</div>;

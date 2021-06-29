@@ -1,21 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-// import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-// import Avatar from './Avatar';
-// import ProfileIcon from '@material-ui/icons/RecordVoiceOverRounded';
-// import VpnKeyIcon from '@material-ui/icons/VpnKey';
-// import MailIcon from '@material-ui/icons/AlternateEmailOutlined';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 
-import ImageUploader from './ImageUpload';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-
-import Input from '@material-ui/core/Input';
+import ImageUploader from 'react-images-upload';
 import { TextField } from '@material-ui/core';
 
 // ComponentStyle
@@ -35,6 +23,9 @@ export default function UserInfo(props) {
 	const classes = useStyles();
 	const DATA_USER = props.data;
 	const [user, setDataUser] = useState(DATA_USER);
+	const [picture, setPicture] = useState('');
+
+	// console.log('sate picture value ', picture[0]);
 
 	const handlerClick = (e) => {
 		e.preventDefault();
@@ -49,11 +40,43 @@ export default function UserInfo(props) {
 			.then((window.location.href = 'http://localhost:3000/profile'));
 	};
 
+	const onDrop = (e) => {
+		setPicture(e.target.files[0]);
+	};
+	console.log(picture);
+
+	const saveImage = (e) => {
+		e.preventDefault();
+		var formData = new FormData();
+		formData.append('picture', picture);
+
+		fetch('/api/profile/uploadAvatar', {
+			method: 'POST',
+			body: formData,
+		});
+		// .then((window.location.href = 'http://localhost:3000/profile'));
+	};
+
 	return (
 		<div>
+			<form onSubmit={saveImage} method="POST" encType="multipart/form-data">
+				<input name="file" type="file" filename="picture" onChange={onDrop}></input>
+				{/* <ImageUploader
+					name="file"
+					onChange={onDrop}
+					type="file"
+					filename="picture"
+					withPreview={true}
+					withIcon={false}
+					buttonText={'Change Avatar Profile'}
+					imgExtension={['.jpg', '.png', '.gif']}
+					maxFileSize={5242880}
+					withLabel={true}
+					singleImage={true}
+				/> */}
+				<button type="submit">Submit</button>
+			</form>
 			<form className={classes.root} noValidate autoComplete="off">
-				<ImageUploader dataSession={user} withIcon={false} buttonText="Change Profile Picture" singleImage={true} />
-
 				<TextField
 					className={classes.textfield}
 					onChange={(event) => setDataUser({ ...user, firstName: event.currentTarget.value })}
@@ -80,7 +103,6 @@ export default function UserInfo(props) {
 					inputProps={{ 'aria-label': 'email' }}
 					type="email"
 				/>
-
 				<TextField
 					className={classes.textfield}
 					label="Password"
