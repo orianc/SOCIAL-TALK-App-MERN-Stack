@@ -9,7 +9,7 @@ const UserSchema = new Schema(
 		age: { type: Number, default: 0 },
 		email: { type: String, require: true, unique: true },
 		pw: { type: String, require: true },
-		picture: { data: Buffer, contentType: String },
+		picture: { type: String },
 	},
 	{ timestamps: true },
 );

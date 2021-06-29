@@ -22,7 +22,7 @@ router.post('/add-comment', async (req, res) => {
 	var POST_ID = req.body.comment.POST_ID;
 	const CURRENT_POST = collections.Posts.findById(POST_ID, (err, post) => {
 		if (!post) {
-			req.flash('error', 'No post');
+			res.flash('error', 'No post');
 			return res.redirect('/posts');
 		}
 

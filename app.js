@@ -5,6 +5,7 @@ const express = require('express');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const multer = require('multer');
 const fs = require('fs');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -31,6 +32,7 @@ var cookieParserOptions = {
 const app = express();
 
 // UseSetup
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
