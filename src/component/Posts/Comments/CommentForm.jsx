@@ -8,9 +8,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Avatar from '../../ProfileCard/Avatar';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { LaptopWindows } from '@material-ui/icons';
-
+import './CommentForm.css';
 const useStyles = makeStyles((theme) => ({
 	margin: {
 		margin: theme.spacing(3, 0, 1, 0),
@@ -21,7 +22,7 @@ const Comment = (props) => {
 	const classes = useStyles();
 	const POST_ID = props.PostId;
 	const DATA_SESSION_USER = props.dataUser;
-
+	const avatar = '/uploads/' + DATA_SESSION_USER.picture;
 	const [comment, setComment] = useState({
 		DATA_USER: DATA_SESSION_USER,
 		POST_ID,
@@ -48,7 +49,7 @@ const Comment = (props) => {
 	};
 
 	return (
-		<div className="text-right d-inline">
+		<div className="text-right d-inline px-2">
 			<FormControl className={classes.margin}>
 				<InputLabel htmlFor="input-with-icon-adornment">Comment</InputLabel>
 				<Input
@@ -57,13 +58,12 @@ const Comment = (props) => {
 					placeholder="Comment here..."
 					rows="2"
 					startAdornment={
-						<InputAdornment position="start">
-							<AccountCircle />
+						<InputAdornment className="mx-1" position="start">
+							<Avatar src={avatar} />
 						</InputAdornment>
 					}
 				/>
 			</FormControl>
-
 			<IconButton className={classes.margin} onClick={handlerNewComment} aria-label="comment">
 				<MessageIcon />
 			</IconButton>

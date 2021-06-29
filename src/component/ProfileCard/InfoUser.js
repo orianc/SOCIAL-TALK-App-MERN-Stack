@@ -26,12 +26,15 @@ export default function FolderList(props) {
 	const classes = useStyles();
 	const DATA_USER = props.data;
 	const DATA_USER_FULL_NAME = DATA_USER.firstName + ' ' + DATA_USER.lastName;
+	const avatar = '/uploads/' + DATA_USER.picture;
+	console.log(avatar);
+
 	if (DATA_USER === undefined) return <CircularProgress color={'secondary'} thickness={1} size={40} />;
 
 	return (
 		<List className={classes.root}>
 			<ListItem className={classes.test}>
-				<Avatar src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_boy_person_people_avatar_icon_159358.png" />
+				<Avatar src={avatar} />
 				<ListItemText primary={DATA_USER_FULL_NAME} />
 			</ListItem>
 

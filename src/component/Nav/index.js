@@ -10,8 +10,8 @@ export default function Nav(props) {
 			.then((res) => res.json())
 			.then((window.location.href = 'http://localhost:3000'));
 	};
-
 	const DATA_SESSION_USER = props.dataUser.session;
+	const avatar = '/uploads/' + DATA_SESSION_USER.picture;
 	return (
 		<Router>
 			<nav className="navbar navbar-expand-lg bg-white sticky-top">
@@ -51,7 +51,7 @@ export default function Nav(props) {
 								Talk
 							</Link>
 							<Link className="nav-link" to="/profile">
-								<Avatar src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_boy_person_people_avatar_icon_159358.png">Test</Avatar>
+								<Avatar src={avatar}>Test</Avatar>
 								{DATA_SESSION_USER.firstName} {DATA_SESSION_USER.lastName}
 							</Link>
 							<Link onClick={Logout}>Logout</Link>

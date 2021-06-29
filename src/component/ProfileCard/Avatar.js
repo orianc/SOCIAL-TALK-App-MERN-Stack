@@ -14,17 +14,16 @@ const useStyles = makeStyles((theme) => ({
 		height: theme.spacing(7),
 	},
 	small: {
-		width: theme.spacing(5),
-		height: theme.spacing(5),
+		width: theme.spacing(3),
+		height: theme.spacing(3),
 	},
 }));
 
 export default function ImageAvatars(props) {
 	const classes = useStyles();
-
 	return (
 		<span className={classes.root}>
-			<Avatar src={props.src} className={classes.small} />
+			<Avatar src={props.src} />
 		</span>
 	);
 }

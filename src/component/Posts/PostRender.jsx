@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 export default function RecipeReviewCard(props) {
 	const [post, setPost] = useState(null);
 	const dataUser = props.dataUser;
-
+	const avatar = '/uploads/' + dataUser.picture;
 	useEffect(() => {
 		setTimeout(
 			() =>
@@ -79,7 +79,7 @@ export default function RecipeReviewCard(props) {
 					<Card key={p._id} className={classes.root}>
 						<CardHeader
 							align="left"
-							avatar={<Avatar aria-label="recipe" className={classes.avatar}></Avatar>}
+							avatar={<Avatar src={avatar} aria-label="recipe" className={classes.avatar} />}
 							title={
 								<Typography align="left" variant="button">
 									{p.userInformation.firstName + ' ' + p.userInformation.lastName}

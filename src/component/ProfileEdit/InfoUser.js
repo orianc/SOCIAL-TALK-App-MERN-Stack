@@ -25,16 +25,18 @@ export default function UserInfo(props) {
 	const classes = useStyles();
 	const DATA_USER = props.data;
 	const [user, setDataUser] = useState(DATA_USER);
-
+	const avatar = '/uploads/' + DATA_USER.picture;
 	const [picture, setPicture] = useState(() => {
-		if (DATA_USER.picture != undefined) {
-			return DATA_USER.picture;
+		if (DATA_USER.picture !== undefined) {
+			return avatar;
 		}
-		if (picture != undefined) {
-			return picture;
-		}
+		// if (picture !== undefined) {
+		// 	return picture;
+		// }
 		return '';
 	});
+	const [readerRes, setReaderRes] = useState('');
+	console.log(picture);
 
 	// console.log('sate picture value ', picture[0]);
 
@@ -53,8 +55,16 @@ export default function UserInfo(props) {
 
 	const onDrop = (e) => {
 		setPicture(e.target.files[0]);
+
+		// Try to add a preview uploading
+		// var file = e.target.files[0];
+		// var reader = new FileReader();
+		// var url = reader.readAsDataURL(file);
+
+		// Bug on this line
+		// reader.onloadend(setReaderRes({ imgLink: [reader.result] }));
+		// console.log(url);
 	};
-	console.log(picture);
 
 	const saveImage = (e) => {
 		e.preventDefault();
@@ -74,7 +84,7 @@ export default function UserInfo(props) {
 			<form className="form-control justify-content-center" onSubmit={saveImage} method="POST" encType="multipart/form-data">
 				{/* <input className name="file" type="file" filename="picture" onChange={onDrop}></input> */}
 
-				<Avatar src={'/uploads/' + picture} className="justify-content-center" />
+				<Avatar src={picture} className="justify-content-center" />
 				<InputLabel htmlFor="file">Change Avatar</InputLabel>
 				<Input name="file" type="file" filename="picture" onChange={onDrop} />
 

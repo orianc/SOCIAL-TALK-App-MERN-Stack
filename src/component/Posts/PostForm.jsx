@@ -18,12 +18,13 @@ const Post = (props) => {
 			body: JSON.stringify({ post }),
 		});
 	};
+	const avatar = '/uploads/' + DATA_SESSION_USER.picture;
 
 	return (
 		<div className="container m-sm-5 m-2 py-4">
 			<div className="row flex-column">
 				<div className="d-flex">
-					<img className="rounded-pill mx-3" src="./logo512.png" alt="" height="30px" width="30px" />
+					<img className="rounded-pill mx-3" src={avatar} alt="" height="30px" width="30px" />
 					<h5>
 						{DATA_SESSION_USER.firstName} {DATA_SESSION_USER.lastName}
 					</h5>
