@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CircularProgress, Container } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 import CommentForm from './Comments/CommentForm';
 import Comments from './Comments/Comments';
 

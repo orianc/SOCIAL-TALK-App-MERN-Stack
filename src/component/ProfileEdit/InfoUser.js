@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
-
-import ImageUploader from 'react-images-upload';
-import { TextField } from '@material-ui/core';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import Avatar from './Avatar';
+import { TextField, CircularProgress } from '@material-ui/core';
+import { Input as InputIcon } from '@material-ui/icons';
 
 // ComponentStyle
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +25,16 @@ export default function UserInfo(props) {
 	const classes = useStyles();
 	const DATA_USER = props.data;
 	const [user, setDataUser] = useState(DATA_USER);
-	const [picture, setPicture] = useState('');
+
+	const [picture, setPicture] = useState(() => {
+		if (DATA_USER.picture != undefined) {
+			return DATA_USER.picture;
+		}
+		if (picture != undefined) {
+			return picture;
+		}
+		return '';
+	});
 
 	// console.log('sate picture value ', picture[0]);
 
@@ -56,25 +67,20 @@ export default function UserInfo(props) {
 		});
 		// .then((window.location.href = 'http://localhost:3000/profile'));
 	};
+	if (DATA_USER === undefined) return <CircularProgress color={'secondary'} thickness={1} size={40} />;
 
 	return (
 		<div>
-			<form onSubmit={saveImage} method="POST" encType="multipart/form-data">
-				<input name="file" type="file" filename="picture" onChange={onDrop}></input>
-				{/* <ImageUploader
-					name="file"
-					onChange={onDrop}
-					type="file"
-					filename="picture"
-					withPreview={true}
-					withIcon={false}
-					buttonText={'Change Avatar Profile'}
-					imgExtension={['.jpg', '.png', '.gif']}
-					maxFileSize={5242880}
-					withLabel={true}
-					singleImage={true}
-				/> */}
-				<button type="submit">Submit</button>
+			<form className="form-control justify-content-center" onSubmit={saveImage} method="POST" encType="multipart/form-data">
+				{/* <input className name="file" type="file" filename="picture" onChange={onDrop}></input> */}
+
+				<Avatar src={'/uploads/' + picture} className="justify-content-center" />
+				<InputLabel htmlFor="file">Change Avatar</InputLabel>
+				<Input name="file" type="file" filename="picture" onChange={onDrop} />
+
+				<Button type="submit">
+					<InputIcon className="m-1" /> Submit
+				</Button>
 			</form>
 			<form className={classes.root} noValidate autoComplete="off">
 				<TextField

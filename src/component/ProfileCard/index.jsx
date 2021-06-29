@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Content from './Content';
+import { CircularProgress } from '@material-ui/core';
 
 const ProfileMain = () => {
 	const [dataUser, setUser] = useState(null);
@@ -18,8 +19,9 @@ const ProfileMain = () => {
 	}
 
 	if (dataUser == null) {
-		return <div>Profil loading..</div>;
+		return <CircularProgress color={'secondary'} thickness={1} size={40} />;
 	}
+
 	return (
 		<div className="container align-items-center justify-content-center vh-100 d-flex">
 			<div className="row">
