@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../../middleware/context/context';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { CircularProgress } from '@material-ui/core';
 
@@ -23,33 +25,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FolderList(props) {
+	const USER_SESSION = useContext(UserContext);
 	const classes = useStyles();
-	const DATA_USER = props.data;
-	const DATA_USER_FULL_NAME = DATA_USER.firstName + ' ' + DATA_USER.lastName;
-	const avatar = '/uploads/' + DATA_USER.picture;
-	console.log(avatar);
 
-	if (DATA_USER === undefined) return <CircularProgress color={'secondary'} thickness={1} size={40} />;
+	const userFullName = USER_SESSION.firstName + ' ' + USER_SESSION.lastName;
+	const avatar = '/uploads/' + USER_SESSION.picture;
+
+	if (USER_SESSION === undefined) return <CircularProgress color={'secondary'} thickness={1} size={40} />;
 
 	return (
 		<List className={classes.root}>
 			<ListItem className={classes.test}>
 				<Avatar src={avatar} />
-				<ListItemText primary={DATA_USER_FULL_NAME} />
+				<ListItemText primary={userFullName} />
 			</ListItem>
 
 			<ListItem>
 				<ListItemAvatar>
 					<MailIcon />
 				</ListItemAvatar>
-				<ListItemText primary="Mail" secondary={DATA_USER.email} />
+				<ListItemText primary="Mail" secondary={USER_SESSION.email} />
 			</ListItem>
 
 			<ListItem>
 				<ListItemAvatar>
 					<ProfileIcon />
 				</ListItemAvatar>
-				<ListItemText primary="Age" secondary={DATA_USER.age} />
+				<ListItemText primary="Age" secondary={USER_SESSION.age} />
 			</ListItem>
 		</List>
 	);

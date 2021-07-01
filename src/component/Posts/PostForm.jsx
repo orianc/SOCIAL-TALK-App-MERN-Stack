@@ -6,7 +6,6 @@ const Post = (props) => {
 		DATA_USER: DATA_SESSION_USER,
 		content: '',
 	});
-	console.log(JSON.stringify({ post }));
 
 	const handlerNewPost = async (e) => {
 		e.preventDefault();

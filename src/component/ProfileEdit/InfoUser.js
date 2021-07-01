@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Avatar from './Avatar';
-import { TextField, CircularProgress } from '@material-ui/core';
+import { FormControl, TextField, CircularProgress } from '@material-ui/core';
 import { Input as InputIcon } from '@material-ui/icons';
+import { UserContext } from '../../middleware/context/context';
 
 // ComponentStyle
 const useStyles = makeStyles((theme) => ({
@@ -22,46 +24,62 @@ const useStyles = makeStyles((theme) => ({
 // Component
 
 export default function UserInfo(props) {
-	const classes = useStyles();
-	const DATA_USER = props.data;
-	const [user, setDataUser] = useState(DATA_USER);
+	const DATA_USER = useContext(UserContext);
 	const avatar = '/uploads/' + DATA_USER.picture;
+
+	const classes = useStyles();
+	const [ErrorStatus, setErrorStatus] = useState({
+		firstName: false,
+		lastName: false,
+		email: false,
+		pw: false,
+		age: false,
+	});
+	const [user, setDataUser] = useState(DATA_USER);
 	const [picture, setPicture] = useState(() => {
 		if (DATA_USER.picture !== undefined) {
 			return avatar;
 		}
-		// if (picture !== undefined) {
-		// 	return picture;
-		// }
 		return '';
 	});
+
 	const [readerRes, setReaderRes] = useState('');
-	console.log(picture);
 
-	// console.log('sate picture value ', picture[0]);
+	const validateForm = () => {
+		if ((ErrorStatus.age || ErrorStatus.pw || ErrorStatus.email || ErrorStatus.age || ErrorStatus.age || ErrorStatus.age) !== true) {
+			return true;
+		}
+		return false;
+	};
 
-	const handlerClick = (e) => {
+	console.log('Profile edit is valid ? ', validateForm());
+	// console.log('Do you have an error constraint ?', ErrorStatus);
+
+	const handlerClick = async (e) => {
 		e.preventDefault();
-		fetch('/api/profile/edit', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ user }),
-		})
-			.then((res) => res.json())
-			.then((window.location.href = 'http://localhost:3000/profile'));
+		if (validateForm()) {
+			const res = await fetch('/api/profile/edit', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ user }),
+			});
+			const data = await res.json();
+			return (window.location.href = 'http://localhost:3000/profile');
+		}
+		return alert('Please enter valid value to confirm.');
 	};
 
 	const onDrop = (e) => {
 		setPicture(e.target.files[0]);
 
-		// Try to add a preview uploading
+		// ---- Try to add a preview uploading
 		// var file = e.target.files[0];
 		// var reader = new FileReader();
 		// var url = reader.readAsDataURL(file);
 
-		// Bug on this line
+		// ---- a bug on during this instruction
 		// reader.onloadend(setReaderRes({ imgLink: [reader.result] }));
 		// console.log(url);
 	};
@@ -74,11 +92,10 @@ export default function UserInfo(props) {
 		fetch('/api/profile/uploadAvatar', {
 			method: 'POST',
 			body: formData,
-		});
-		// .then((window.location.href = 'http://localhost:3000/profile'));
+		}).then((window.location.href = 'http://localhost:3000/profile-edit'));
 	};
-	if (DATA_USER === undefined) return <CircularProgress color={'secondary'} thickness={1} size={40} />;
 
+	if (DATA_USER === undefined) return <CircularProgress color={'secondary'} thickness={1} size={40} />;
 	return (
 		<div>
 			<form className="form-control justify-content-center" onSubmit={saveImage} method="POST" encType="multipart/form-data">
@@ -92,51 +109,87 @@ export default function UserInfo(props) {
 					<InputIcon className="m-1" /> Submit
 				</Button>
 			</form>
-			<form className={classes.root} noValidate autoComplete="off">
+			<form className={classes.root} noValidate autoComplete="on">
 				<TextField
-					className={classes.textfield}
-					onChange={(event) => setDataUser({ ...user, firstName: event.currentTarget.value })}
+					label="First Name"
 					defaultValue={DATA_USER.firstName}
+					required={true}
+					onChange={(event) => setDataUser({ ...user, firstName: event.currentTarget.value })}
+					className={classes.textfield}
 					inputProps={{ 'aria-label': 'first-name' }}
 					color="primary"
 					variant="outlined"
-					label="First Name"
+					size="small"
 				/>
 				<TextField
-					className={classes.textfield}
 					label="Last Name"
-					variant="outlined"
-					onChange={(event) => setDataUser({ ...user, lastName: event.currentTarget.value })}
+					required={true}
+					size="small"
 					defaultValue={DATA_USER.lastName}
+					onChange={(event) => setDataUser({ ...user, lastName: event.currentTarget.value })}
+					className={classes.textfield}
+					variant="outlined"
 					inputProps={{ 'aria-label': 'last-name' }}
 				/>
 				<TextField
-					className={classes.textfield}
-					label="E-Mail"
-					variant="outlined"
-					onChange={(event) => setDataUser({ ...user, email: event.currentTarget.value })}
-					defaultValue={DATA_USER.email}
-					inputProps={{ 'aria-label': 'email' }}
 					type="email"
+					label="E-Mail"
+					required={true}
+					defaultValue={DATA_USER.email}
+					onChange={(e) => {
+						setDataUser({ ...user, email: e.currentTarget.value });
+						if (e.currentTarget.value.includes('@') && e.currentTarget.value.includes('.')) {
+							return setErrorStatus({ email: false });
+						} else {
+							setErrorStatus({ email: true });
+						}
+					}}
+					error={ErrorStatus.email}
+					variant="outlined"
+					size="small"
+					className={classes.textfield}
+					inputProps={{ 'aria-label': 'email' }}
 				/>
 				<TextField
-					className={classes.textfield}
-					label="Password"
-					variant="outlined"
-					onChange={(event) => setDataUser({ ...user, pw: event.currentTarget.value })}
-					defaultValue={DATA_USER.pw}
-					inputProps={{ 'aria-label': 'pw' }}
 					type="password"
-				/>
-				<TextField
-					className={classes.textfield}
-					label="age"
+					label="Password"
+					defaultValue={DATA_USER.pw}
+					required={true}
+					onChange={(e) => {
+						setDataUser({ ...user, pw: e.currentTarget.value });
+						if (e.currentTarget.value.length < 8 || e.currentTarget.value.length > 16) {
+							return setErrorStatus({ pw: true });
+						} else {
+							setErrorStatus({ pw: false });
+						}
+					}}
+					error={ErrorStatus.pw}
+					helperText="*Must be between 8 and 16 character."
+					size="small"
 					variant="outlined"
-					onChange={(event) => setDataUser({ ...user, age: event.currentTarget.value })}
-					defaultValue={DATA_USER.age}
-					inputProps={{ 'aria-label': 'age' }}
-					type="number"
+					inputProps={{ 'aria-label': 'pw' }}
+					className={classes.textfield}
 				/>
+				<FormControl>
+					<TextField
+						type="number"
+						label="age"
+						size="small"
+						defaultValue={DATA_USER.age}
+						onChange={(e) => {
+							setDataUser({ ...user, age: e.currentTarget.value });
+							if (e.currentTarget.value < 10 || e.currentTarget.value > 90) {
+								setErrorStatus({ age: true });
+							} else {
+								setErrorStatus({ age: false });
+							}
+						}}
+						error={ErrorStatus.age}
+						variant="outlined"
+						className={classes.textfield}
+						inputProps={({ 'aria-label': 'age' }, { min: '10' })}
+					/>
+				</FormControl>
 				<CardActions>
 					<Button onClick={handlerClick} size="small" color="primary">
 						Confirm

@@ -25,13 +25,12 @@ const useStyles = makeStyles({
 
 export default function ImgMediaCard(props) {
 	const classes = useStyles();
-	const DATA_USER = props.data.user;
 	return (
 		<Card className={classes.root}>
 			<CardActionArea>
 				<CardContent>
 					<Typography gutterBottom variant="h5" component="h3" className={classes.title}>
-						<InfoUser data={DATA_USER} />
+						<InfoUser />
 					</Typography>
 				</CardContent>
 			</CardActionArea>

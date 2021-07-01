@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import Auth from './component/Auth';
 import Nav from './component/Nav';
+import { UserContext } from './middleware/context/context';
 
 const App = () => {
 	const [session, setSession] = useState({});
@@ -9,24 +10,29 @@ const App = () => {
 	useEffect(() => {
 		restoreLogin();
 	}, []);
-	console.log('state session', session);
 
-	function restoreLogin() {
-		fetch('/api/auth/login')
-			.then((res) => res.json())
-			.then((data) => {
-				if (data.user.user) {
-					console.log(data.user.user);
-					setSession(data.user.user);
-				}
-				// console.log('restore log =', data.user);
-			});
-	}
+	const restoreLogin = async () => {
+		try {
+			const res = await fetch('/api/auth/login');
+			const data = await res.json();
+			if (data.user.user) {
+				return setSession(data.user.user);
+			}
+		} catch (error) {
+			return console.error('Oops, Error : ', error);
+		}
+	};
 
 	function Greeting(session) {
-		console.log('inside greeting : ', session.session.email);
 		if (session.session.email) {
-			return <Nav dataUser={session} />;
+			return (
+				<>
+					{console.log(`Login success as ${session.session.firstName}`)}
+					<UserContext.Provider value={session.session}>
+						<Nav dataUser={session} />
+					</UserContext.Provider>
+				</>
+			);
 		}
 		return <Auth />;
 	}
