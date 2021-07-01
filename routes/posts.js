@@ -19,22 +19,19 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res) => {
 	console.log('Route POST asked');
 
-	const USER_DATA = req.body.post.DATA_USER;
-	const USER_ID = USER_DATA._id;
-	const USER_FIRST_NAME = USER_DATA.firstName;
-	const USER_LAST_NAME = USER_DATA.lastName;
-
-	const POST_CONTENT = req.body.post.content;
-
-	// console.log('le req body donne : ', USER_DATA);
-
+	const USER_DATA = await req.body.post.DATA_USER;
+	const POST_CONTENT = await req.body.post.content;
+	const date = new Date();
+	const getTime = date.toUTCString();
 	try {
 		const newPost = await collections.Posts.create({
 			content: POST_CONTENT,
+			postTime: getTime,
 			userInformation: {
-				_id: USER_ID,
-				firstName: USER_FIRST_NAME,
-				lastName: USER_LAST_NAME,
+				_id: USER_DATA._id,
+				userPicture: USER_DATA.picture,
+				firstName: USER_DATA.firstName,
+				lastName: USER_DATA.lastName,
 			},
 		});
 		res.send('New post create');
@@ -56,12 +53,15 @@ router.post('/add-comment', async (req, res) => {
 
 		var USER_DATA = req.body.comment.DATA_USER;
 		var USER_ID = USER_DATA._id;
+		var USER_PIC = USER_DATA.picture;
 		var USER_FIRST_NAME = USER_DATA.firstName;
 		var USER_LAST_NAME = USER_DATA.lastName;
 		var COMMENT_CONTENT = req.body.comment.COMMENT_CONTENT.trim();
+
 		const newComment = {
 			userInformation: {
 				USER_ID,
+				USER_PIC,
 				USER_FIRST_NAME,
 				USER_LAST_NAME,
 			},

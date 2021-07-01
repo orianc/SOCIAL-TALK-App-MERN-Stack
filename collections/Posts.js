@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = Schema.Types.ObjectId;
 const autoIncrement = require('mongoose-auto-increment');
 const mongooseLeanId = require('mongoose-lean-id');
 
 const PostSchema = new Schema({
 	content: { type: String, require: true },
-	postTime: { type: Date, default: Date },
+	postTime: { type: String },
 
 	userInformation: {
 		_id: { type: Number, require: true },
+		userPicture: { type: String },
 		firstName: { type: String },
 		lastName: { type: String },
 	},
