@@ -48,15 +48,12 @@ router.post('/edit', async (req, res, next) => {
 			var lastName = USER_SESSION_CHANGE.lastName.trim();
 			var pw = USER_SESSION_CHANGE.pw.trim();
 			var age = USER_SESSION_CHANGE.age;
-			// var picture = req.file.picture;
-			console.log('picture value :', req);
 
 			user.email = email;
 			user.firstName = firstName;
 			user.lastName = lastName;
 			user.age = age;
 			user.pw = pw;
-			user.picture = picture;
 
 			user.save().then(() => {
 				req.session.user = user.toObject();
@@ -64,7 +61,7 @@ router.post('/edit', async (req, res, next) => {
 					res.send({ user: req.session.user });
 				});
 			});
-			user.save();
+			// user.save();
 			//To do :  Manage redirect issue.
 		});
 	} catch (error) {
