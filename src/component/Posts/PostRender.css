@@ -1,0 +1,7 @@
+.bg-light .MuiAvatar-img {
+	transform: scale(0.6);
+	border-radius: 40px;
+}
+.bg-light .MuiAvatar-root {
+	margin: 2px !important;
+}

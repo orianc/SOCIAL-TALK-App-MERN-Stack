@@ -1,15 +1,42 @@
+import React, { useState, useEffect } from 'react';
+
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+
 import PostMain from '../Posts/PostMain';
 import Profile from '../ProfileCard';
 import ProfileEdit from '../ProfileEdit';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Avatar from '../ProfileCard/Avatar';
+import { PostsContext } from '../../middleware/context/context';
+import { getPosts } from '../../middleware/context/getPosts';
+
+import Button from '@material-ui/core/Button';
 
 export default function Nav(props) {
+	const [posts, setPost] = useState([]);
+	const [call, setCall] = useState(0);
+
+	const callIncrement = () => {
+		setTimeout(() => {
+			setCall(call + 1);
+		}, 4500);
+	};
+	callIncrement();
+
+	useEffect(() => {
+		try {
+			getPosts().then((posts) => {
+				setPost(posts); // fetched movies
+			});
+		} catch (error) {
+			console.error('Posts fill loading failed');
+		}
+	}, [call]);
+
 	const Logout = () => {
 		fetch('/api/auth/logout')
 			.then((res) => res.json())
 			.then((window.location.href = 'http://localhost:3000'));
 	};
+
 	const DATA_SESSION_USER = props.dataUser.session;
 	const avatar = '/uploads/' + DATA_SESSION_USER.picture;
 	return (
@@ -47,14 +74,22 @@ export default function Nav(props) {
 					</button>
 					<div className="collapse navbar-collapse" id="navbarNavAltMarkup">
 						<div className="navbar-nav">
-							<Link className="nav-link" to="/posts">
-								Talk
-							</Link>
-							<Link className="nav-link" to="/profile">
-								<Avatar src={avatar}>Test</Avatar>
-								{DATA_SESSION_USER.firstName} {DATA_SESSION_USER.lastName}
-							</Link>
-							<Link onClick={Logout}>Logout</Link>
+							<div className="row  shadow-sm bg-light rounded py-4">
+								<div className="col-12 nav-link">
+									<Button component={Link} className=" my-2 mx-4" variant="contained" color="primary" to="/posts">
+										Let's Talk !
+									</Button>
+
+									<Button size={'small'} variant="contained" color="secondary" onClick={Logout}>
+										Logout
+									</Button>
+								</div>
+								<Link className="col-12 nav-link" to="/profile">
+									<Profile />
+									{/* <Avatar src={avatar} className="justify-content-center"></Avatar>
+									{DATA_SESSION_USER.firstName} {DATA_SESSION_USER.lastName} */}
+								</Link>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -62,7 +97,9 @@ export default function Nav(props) {
 
 			<Switch>
 				<Route path="/posts">
-					<PostMain dataUser={DATA_SESSION_USER} />
+					<PostsContext.Provider value={posts}>
+						<PostMain dataUser={DATA_SESSION_USER} />
+					</PostsContext.Provider>
 				</Route>
 				<Route path="/profile">
 					<Profile />

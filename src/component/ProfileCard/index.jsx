@@ -24,7 +24,7 @@ const ProfileMain = () => {
 	}
 
 	return (
-		<div className="container align-items-center justify-content-center vh-100 d-flex">
+		<div className="container align-items-center justify-content-center d-flex">
 			<div className="row">
 				<Content data={dataUser}></Content>
 			</div>

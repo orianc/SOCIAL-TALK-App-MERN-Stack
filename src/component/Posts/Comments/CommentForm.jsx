@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { IconButton, InputAdornment, Input, InputLabel, FormControl } from '@material-ui/core';
 import MessageIcon from '@material-ui/icons/Message';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
 
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
 import Avatar from '../../ProfileCard/Avatar';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import { LaptopWindows } from '@material-ui/icons';
 import './CommentForm.css';
+import { UserContext } from '../../../middleware/context/context';
+
 const useStyles = makeStyles((theme) => ({
 	margin: {
 		margin: theme.spacing(3, 0, 1, 0),
@@ -21,13 +17,15 @@ const useStyles = makeStyles((theme) => ({
 const Comment = (props) => {
 	const classes = useStyles();
 	const POST_ID = props.PostId;
-	const DATA_SESSION_USER = props.dataUser;
+	const DATA_SESSION_USER = useContext(UserContext);
 	const avatar = '/uploads/' + DATA_SESSION_USER.picture;
+
 	const [comment, setComment] = useState({
 		DATA_USER: DATA_SESSION_USER,
 		POST_ID,
 		COMMENT_CONTENT: null,
 	});
+	const [reset, setReset] = useState('');
 
 	// console.log(comment);
 
@@ -47,7 +45,6 @@ const Comment = (props) => {
 				console.log(('Add : ', result));
 			});
 	};
-
 	return (
 		<div className="text-right d-inline px-2">
 			<FormControl className={classes.margin}>

@@ -7,10 +7,6 @@ import { UserContext } from './middleware/context/context';
 const App = () => {
 	const [session, setSession] = useState({});
 
-	useEffect(() => {
-		restoreLogin();
-	}, []);
-
 	const restoreLogin = async () => {
 		try {
 			const res = await fetch('/api/auth/login');
@@ -22,6 +18,10 @@ const App = () => {
 			return console.error('Oops, Error : ', error);
 		}
 	};
+
+	useEffect(() => {
+		restoreLogin();
+	}, []);
 
 	function Greeting(session) {
 		if (session.session.email) {

@@ -1,32 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { CircularProgress } from '@material-ui/core';
-import CommentForm from './Comments/CommentForm';
-import Comments from './Comments/Comments';
-
+import React, { useContext } from 'react';
+import { PostsContext } from '../../middleware/context/context';
+import { UserContext } from '../../middleware/context/context';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '../ProfileCard/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+import { CircularProgress, Card, IconButton, Typography, Box, CardActions, CardContent, CardHeader } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Box from '@material-ui/core/Box';
-import { auto } from 'async';
+
+import CommentForm from './Comments/CommentForm';
+import './PostRender.css';
+
+import Avatar from '../ProfileCard/Avatar';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		maxWidth: 345,
+		width: '100vw',
 		marginTop: 20,
-		marginBottom: 40,
+		marginBottom: 0,
+		borderTop: 'solid 1px lightgrey',
 	},
 	media: {
 		height: 0,
@@ -42,34 +31,14 @@ const useStyles = makeStyles((theme) => ({
 	expandOpen: {
 		transform: 'rotate(180deg)',
 	},
-	avatar: {
-		backgroundColor: red[500],
-	},
 }));
 
 export default function RecipeReviewCard(props) {
-	const [post, setPost] = useState(null);
-	const dataUser = props.dataUser;
-	const avatar = '/uploads/' + dataUser.picture;
-	useEffect(() => {
-		setTimeout(
-			() =>
-				fetch('/api/posts')
-					.then((res) => res.json())
-					.then((data) => setPost(data)),
-			5000,
-		);
-	}, [post]);
-	// console.log('DATA USER = ', dataUser, 'and DATA_POST = ', post);
-
+	const post = useContext(PostsContext);
+	const dataUser = useContext(UserContext);
 	const classes = useStyles();
-	const [expanded, setExpanded] = React.useState(false);
 
-	const handleExpandClick = () => {
-		setExpanded(!expanded);
-	};
 	if (post == null) return <CircularProgress color={'secondary'} thickness={1} size={40} />;
-	// console.log(post[0].comments[0].userInformation.USER_FIRST_NAME);
 	return (
 		<div className="container d-flex flex-column align-items-center">
 			{post
@@ -79,7 +48,7 @@ export default function RecipeReviewCard(props) {
 					<Card key={p._id} className={classes.root}>
 						<CardHeader
 							align="left"
-							avatar={<Avatar src={avatar} aria-label="recipe" className={classes.avatar} />}
+							avatar={<Avatar src={'/uploads/' + p.userInformation.userPicture} aria-label="recipe" />}
 							title={
 								<Typography align="left" variant="button">
 									{p.userInformation.firstName + ' ' + p.userInformation.lastName}
@@ -97,25 +66,23 @@ export default function RecipeReviewCard(props) {
 						</Box>
 						<div className=" ">
 							<CardActions className="pb-0">
-								<IconButton
-									className={clsx(classes.expand, {
-										[classes.expandOpen]: expanded,
-									})}
-									aria-label="show more"
-								>
+								<IconButton aria-label="show more">
 									<p className="fs-6 px-2 m-0">Read Comment</p>
 									<ExpandMoreIcon />
 								</IconButton>
 							</CardActions>
-
-							<div style={{ height: 110 }} className="mx-1 overflow-scroll">
+							<div style={{ maxHeight: 210, boxShadow: '0px 0px 1px inset' }} className="mx-1 overflow-scroll">
 								{p.comments.map((c) => (
-									<div className="bg-light p-2">
-										<Typography className="px-2" align="left" variant="subtitle2">
-											{c.userInformation.USER_FIRST_NAME} {c.userInformation.USER_LAST_NAME}
-										</Typography>
+									<div className="bg-light px-4 py-2 border">
+										<div className="row">
+											<Avatar src={'/uploads/' + c.userInformation.USER_PIC} aria-label="recipe" />
 
-										<Box className="rounded" bgcolor="info.main" color="secondary.contrastText">
+											<Typography className="d-flex px-2" align="left" variant="subtitle2">
+												{c.userInformation.USER_FIRST_NAME + ' ' + c.userInformation.USER_LAST_NAME}
+											</Typography>
+										</div>
+
+										<Box className="rounded" color="text.secondary">
 											<Typography className=" rounded p-2" align="left" variant="body2">
 												{c.comment_content}
 											</Typography>

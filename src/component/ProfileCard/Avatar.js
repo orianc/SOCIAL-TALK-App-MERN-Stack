@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
 			margin: theme.spacing(2),
 		},
 	},
+	smallWidth: {
+		width: '50%',
+	},
 	large: {
 		width: theme.spacing(7),
 		height: theme.spacing(7),

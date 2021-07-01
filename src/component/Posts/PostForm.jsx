@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 const Post = (props) => {
 	const DATA_SESSION_USER = props.dataUser;
 	const [post, setPost] = useState({
