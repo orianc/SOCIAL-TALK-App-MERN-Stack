@@ -21,6 +21,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+export const validateForm = (ErrorStatus) => {
+	if ((ErrorStatus.age || ErrorStatus.pw || ErrorStatus.email) !== true) {
+		return true;
+	}
+	return false;
+};
 // Component
 
 export default function UserInfo(props) {
@@ -43,16 +49,7 @@ export default function UserInfo(props) {
 		return '';
 	});
 
-	const [readerRes, setReaderRes] = useState('');
-
-	const validateForm = () => {
-		if ((ErrorStatus.age || ErrorStatus.pw || ErrorStatus.email || ErrorStatus.age || ErrorStatus.age || ErrorStatus.age) !== true) {
-			return true;
-		}
-		return false;
-	};
-
-	console.log('Profile edit is valid ? ', validateForm());
+	console.log('Profile edit is valid ? ', validateForm(ErrorStatus));
 	// console.log('Do you have an error constraint ?', ErrorStatus);
 
 	const handlerClick = async (e) => {

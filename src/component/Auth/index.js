@@ -48,9 +48,6 @@ export default function Auth(props) {
 					</svg>
 				</Button>
 				<Modal show={show} onHide={() => setShow(false)}>
-					<Modal.Header className="bg-primary text-white justify-content-center">
-						<Modal.Title>Authenticator</Modal.Title>
-					</Modal.Header>
 					<Modal.Body>
 						<Container>
 							<Row>

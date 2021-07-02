@@ -1,35 +1,65 @@
 import React, { useState } from 'react';
 
-const RegisterForm = () => {
-	const [user, setUser] = useState({});
+import { Input, Snackbar, Button } from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
-	// console.log('user direct = ', user);
+export const RegisterForm = () => {
+	const [user, setUser] = useState({});
+	const [open, setOpen] = useState(false);
+	const [openError, setOpenError] = useState(false);
 
 	const handlerUserConnection = async (e) => {
 		e.preventDefault();
-		await window
-			.fetch('/api/auth/login', {
+		try {
+			await fetch('/api/auth/login', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({ user }),
 			})
-			.then((res) => res.json())
-			.then((data) => setUser(data.user))
-			.then((window.location.href = 'http://localhost:3000/posts'));
+				.then((res) => res.json())
+				.then((data) => {
+					setUser(data.user);
+					setOpen(true);
+					setTimeout(() => {
+						window.location.href = 'http://localhost:3000/posts';
+					}, 2500);
+				});
+		} catch (error) {
+			setOpenError(true);
+			console.error('Error during POST login ', error);
+		}
+	};
 
-		//To do :  Tester Login Error
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			setOpenError(false);
+			setOpen(false);
+			return;
+		}
+		setOpenError(false);
+		setOpen(false);
 	};
 
 	return (
 		<div className=" my-3 p-3 bg-light rounded ">
+			<Snackbar open={openError} autoHideDuration={4000} onClose={handleClose}>
+				<Alert onClose={handleClose} severity="error">
+					<AlertTitle>Error</AlertTitle>
+					Login fail... something wrong. — <strong>Try again !</strong>
+				</Alert>
+			</Snackbar>
+			<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+				<Alert severity="success">Login success</Alert>
+			</Snackbar>
+
 			<div className=" p-1 text-center">
-				<h6 className="">Connection</h6>
+				<h5>Connect</h5>
 			</div>
 			<form className="text-secondary">
 				<div className="mb-3">
-					<input
+					<Input
 						onChange={(event) => setUser({ ...user, email: event.currentTarget.value })}
 						className="form-control form-control-sm"
 						type="email"
@@ -39,7 +69,7 @@ const RegisterForm = () => {
 				</div>
 
 				<div className="mb-3">
-					<input
+					<Input
 						onChange={(event) => setUser({ ...user, pw: event.currentTarget.value })}
 						className="form-control form-control-sm"
 						placeholder="password"
@@ -48,9 +78,9 @@ const RegisterForm = () => {
 					/>
 				</div>
 
-				<button onClick={handlerUserConnection} className="btn btn-sm btn-primary" type="submit">
+				<Button onClick={handlerUserConnection} variant="contained" color="primary" type="submit">
 					Connect
-				</button>
+				</Button>
 			</form>
 		</div>
 	);
