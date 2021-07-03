@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Snackbar, Button, IconButton, InputAdornment, Input, InputLabel, FormControl } from '@material-ui/core';
+import { Snackbar, CircularProgress, IconButton, InputAdornment, Input, InputLabel, FormControl } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import MessageIcon from '@material-ui/icons/Message';
 
@@ -72,7 +72,9 @@ const Comment = (props) => {
 				</Alert>
 			</Snackbar>
 			<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-				<Alert severity="success">Post comment success! Wait reload all posts...</Alert>
+				<Alert severity="success">
+					Post comment success! <CircularProgress color={'secondary'} thickness={1} size={40} />
+				</Alert>
 			</Snackbar>
 			<FormControl className={classes.margin}>
 				<InputLabel htmlFor="input-with-icon-adornment">Comment</InputLabel>
