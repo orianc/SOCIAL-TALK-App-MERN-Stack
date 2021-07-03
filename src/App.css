@@ -44,3 +44,34 @@ textarea {
 a {
 	text-decoration: none !important;
 }
+
+.text-primary {
+	color: #303f9f !important;
+}
+
+.h1-intro::before {
+	content: '';
+
+	width: 10px;
+	height: 10px;
+	border-radius: 100%;
+	position: absolute;
+	background-color: #f50057;
+	left: 12%;
+	bottom: 47%;
+}
+
+.h1-intro::after {
+	content: '';
+
+	width: 10px;
+	height: 10px;
+	border-radius: 100%;
+	position: absolute;
+	background-color: #f50057;
+	right: 12%;
+	bottom: 47%;
+}
+.bg-primary {
+	background-color: #303f9f !important;
+}

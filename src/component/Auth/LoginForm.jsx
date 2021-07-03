@@ -24,7 +24,7 @@ export const RegisterForm = () => {
 					setOpen(true);
 					setTimeout(() => {
 						window.location.href = 'http://localhost:3000/posts';
-					}, 2500);
+					}, 2000);
 				});
 		} catch (error) {
 			setOpenError(true);

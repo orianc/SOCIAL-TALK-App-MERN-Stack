@@ -36,7 +36,7 @@ export default function ImgMediaCard(props) {
 			</CardActionArea>
 
 			<CardActions>
-				<Button component={Link} to="/profile-edit" size="small" color="primary">
+				<Button variant="contained" color="secondary" component={Link} to="/profile-edit" size="small">
 					Edit
 				</Button>
 			</CardActions>

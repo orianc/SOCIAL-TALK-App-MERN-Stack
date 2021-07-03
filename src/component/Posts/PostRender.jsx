@@ -13,9 +13,10 @@ import Avatar from '../ProfileCard/Avatar';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '100vw',
-		marginTop: 20,
-		marginBottom: 0,
-		borderTop: 'solid 1px lightgrey',
+		marginTop: 15,
+		marginBottom: 15,
+		paddingBottom: 70,
+		paddingTop: 70,
 	},
 	media: {
 		height: 0,
@@ -41,6 +42,7 @@ export default function RecipeReviewCard(props) {
 	if (post == null) return <CircularProgress color={'secondary'} thickness={1} size={40} />;
 	return (
 		<div className="container d-flex flex-column align-items-center">
+			<h3 className="h1-intro">What's up today ?</h3>
 			{post
 				.slice(0)
 				.reverse()
@@ -57,8 +59,8 @@ export default function RecipeReviewCard(props) {
 							subheader={p.postTime}
 						/>
 						{/* <CardMedia className={classes.media} image="/static/images/cards/paella.jpg" title="Paella dish" /> */}
-						<Box bgcolor="info.main" className="rounded mx-3" color="secondary.contrastText">
-							<CardContent className="  text-start justify-content">
+						<Box className="bg-primary text-white rounded mx-3">
+							<CardContent className="text-start justify-content">
 								<Typography variant="body2" component="p">
 									{p.content}
 								</Typography>
@@ -71,22 +73,24 @@ export default function RecipeReviewCard(props) {
 									<ExpandMoreIcon />
 								</IconButton>
 							</CardActions>
-							<div style={{ maxHeight: 210, boxShadow: '0px 0px 1px inset' }} className="mx-1 overflow-scroll">
+							<div style={{ maxHeight: 210, boxShadow: '0px 0px 1px inset' }} className="mx-1 overflow-auto">
 								{p.comments.map((c) => (
-									<div className="bg-light px-4 py-2 border">
+									<div className="bg-light com px-4 py-2 border">
 										<div className="row">
-											<Avatar src={'/uploads/' + c.userInformation.USER_PIC} aria-label="recipe" />
-
-											<Typography className="d-flex px-2" align="left" variant="subtitle2">
-												{c.userInformation.USER_FIRST_NAME + ' ' + c.userInformation.USER_LAST_NAME}
-											</Typography>
+											<div className="col-4">
+												<Avatar src={'/uploads/' + c.userInformation.USER_PIC} aria-label="recipe" />
+												<Typography className="d-flex px-2 justify-content-center" align="center" variant="subtitle2">
+													{c.userInformation.USER_FIRST_NAME + ' ' + c.userInformation.USER_LAST_NAME}
+												</Typography>
+											</div>
+											<div className="col-8">
+												<Box className=" rounded" color="text.secondary">
+													<Typography className=" rounded p-2" align="left" variant="body2">
+														{c.comment_content}
+													</Typography>
+												</Box>
+											</div>
 										</div>
-
-										<Box className="rounded" color="text.secondary">
-											<Typography className=" rounded p-2" align="left" variant="body2">
-												{c.comment_content}
-											</Typography>
-										</Box>
 									</div>
 								))}
 							</div>

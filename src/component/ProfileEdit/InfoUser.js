@@ -6,9 +6,10 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Avatar from './Avatar';
-import { FormControl, TextField, CircularProgress } from '@material-ui/core';
+import { FormControl, Snackbar, TextField, CircularProgress } from '@material-ui/core';
 import { Input as InputIcon } from '@material-ui/icons';
 import { UserContext } from '../../middleware/context/context';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 // ComponentStyle
 const useStyles = makeStyles((theme) => ({
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 		margin: theme.spacing(2),
 	},
 }));
+///
 
 export const validateForm = (ErrorStatus) => {
 	if ((ErrorStatus.age || ErrorStatus.pw || ErrorStatus.email) !== true) {
@@ -27,7 +29,7 @@ export const validateForm = (ErrorStatus) => {
 	}
 	return false;
 };
-// Component
+// ----------------------- Component
 
 export default function UserInfo(props) {
 	const DATA_USER = useContext(UserContext);
@@ -41,6 +43,9 @@ export default function UserInfo(props) {
 		pw: false,
 		age: false,
 	});
+	const [open, setOpen] = useState(false);
+	const [openError, setOpenError] = useState(false);
+
 	const [user, setDataUser] = useState(DATA_USER);
 	const [picture, setPicture] = useState(() => {
 		if (DATA_USER.picture !== undefined) {
@@ -49,23 +54,37 @@ export default function UserInfo(props) {
 		return '';
 	});
 
-	console.log('Profile edit is valid ? ', validateForm(ErrorStatus));
-	// console.log('Do you have an error constraint ?', ErrorStatus);
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			setOpenError(false);
+			setOpen(false);
+			return;
+		}
+		setOpenError(false);
+		setOpen(false);
+	};
 
 	const handlerClick = async (e) => {
-		e.preventDefault();
-		if (validateForm()) {
-			const res = await fetch('/api/profile/edit', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ user }),
-			});
-			const data = await res.json();
-			return (window.location.href = 'http://localhost:3000/profile');
+		try {
+			e.preventDefault();
+			if (validateForm(ErrorStatus)) {
+				await fetch('/api/profile/edit', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ user }),
+				});
+				if (user.email && user.pw && user.firstName && user.lastName) {
+					setOpen(true);
+					return (window.location.href = 'http://localhost:3000/profile');
+				}
+			}
+			return setOpenError(true);
+		} catch (error) {
+			setOpenError(true);
+			return console.error('Error on ¨POST profile-edit ', error);
 		}
-		return alert('Please enter valid value to confirm.');
 	};
 
 	const onDrop = (e) => {
@@ -81,20 +100,36 @@ export default function UserInfo(props) {
 		// console.log(url);
 	};
 
-	const saveImage = (e) => {
+	const saveImage = async (e) => {
 		e.preventDefault();
-		var formData = new FormData();
-		formData.append('picture', picture);
-
-		fetch('/api/profile/uploadAvatar', {
-			method: 'POST',
-			body: formData,
-		}).then((window.location.href = 'http://localhost:3000/profile-edit'));
+		try {
+			var formData = new FormData();
+			await formData.append('picture', picture);
+			await fetch('/api/profile/uploadAvatar', {
+				method: 'POST',
+				body: formData,
+			});
+			setOpen(true);
+			return (window.location.href = 'http://localhost:3000/profile-edit');
+		} catch (error) {
+			setOpenError(true);
+			return console.error('Error saveImage() ', error);
+		}
 	};
 
 	if (DATA_USER === undefined) return <CircularProgress color={'secondary'} thickness={1} size={40} />;
 	return (
 		<div>
+			<Snackbar open={openError} autoHideDuration={4000} onClose={handleClose}>
+				<Alert onClose={handleClose} severity="error">
+					<AlertTitle>Error</AlertTitle>
+					Some field get wrong value or are empty — <strong>Please, try again.</strong>
+				</Alert>
+			</Snackbar>
+			<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+				<Alert severity="success">Change saved !</Alert>
+			</Snackbar>
+
 			<form className="form-control justify-content-center" onSubmit={saveImage} method="POST" encType="multipart/form-data">
 				{/* <input className name="file" type="file" filename="picture" onChange={onDrop}></input> */}
 
@@ -187,8 +222,8 @@ export default function UserInfo(props) {
 						inputProps={({ 'aria-label': 'age' }, { min: '10' })}
 					/>
 				</FormControl>
-				<CardActions>
-					<Button onClick={handlerClick} size="small" color="primary">
+				<CardActions className="justify-content-center">
+					<Button onClick={handlerClick} variant="contained" color="secondary" size="small">
 						Confirm
 					</Button>
 				</CardActions>
