@@ -1,7 +1,21 @@
+si une erreur parvient concernant react-script après le npm install :
+
 ```
 npm i
-si une erreur parvient concernant react-script après le npm install :
+// if react-script error :
 npm installer react-scripts --save
+```
+
+from open a bash and :
+
+```
+npm run start-server
+```
+
+open a second bash and run :
+
+```
+npm run start-client
 ```
 
 # Getting Started with Create React App
