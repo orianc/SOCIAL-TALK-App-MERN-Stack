@@ -1,3 +1,9 @@
+```
+npm i
+si une erreur parvient concernant react-script après le npm install :
+npm installer react-scripts --save
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
