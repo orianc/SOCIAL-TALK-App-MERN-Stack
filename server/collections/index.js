@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 const mongoDbUrl = 'mongodb://localhost/socialtalk-db';
+const mongoDbUrlAtlas = 'mongodb+srv://dev:socialtalk@socialtalk.jqf6c.mongodb.net/DB_SocialTalk?retryWrites=true&w=majority';
 const db = mongoose.connection;
 
-mongoose.connect(mongoDbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoDbUrlAtlas, { useNewUrlParser: true, useUnifiedTopology: true });
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function () {
-	console.log(`Connection to ${mongoDbUrl} is ok !`);
+	console.log(`Connection to ${mongoDbUrlAtlas} is ok !`);
 	start(db);
 });
 
