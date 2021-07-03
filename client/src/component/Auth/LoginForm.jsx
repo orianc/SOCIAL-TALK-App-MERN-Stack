@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Input, Snackbar, Button } from '@material-ui/core';
+import { Input, Snackbar, Button, CircularProgress } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 
 export const RegisterForm = () => {
@@ -51,7 +51,9 @@ export const RegisterForm = () => {
 				</Alert>
 			</Snackbar>
 			<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-				<Alert severity="success">Login success</Alert>
+				<Alert severity="success">
+					Login success <CircularProgress color={'secondary'} thickness={1} size={40} />
+				</Alert>
 			</Snackbar>
 
 			<div className=" p-1 text-center">

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CircularProgress, Snackbar } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import Avatar from '../ProfileCard/Avatar';
 
 const Post = (props) => {
 	const DATA_SESSION_USER = props.dataUser;
@@ -54,8 +55,8 @@ const Post = (props) => {
 				</Alert>
 			</Snackbar>
 			<div className="row flex-column">
-				<div className="d-flex my-4">
-					<img className="rounded-pill mx-3 " src={avatar} alt="" height="30px" width="30px" />
+				<div className="d-flex my-4 align-items-center">
+					<Avatar src={avatar} />
 					<h5>
 						{DATA_SESSION_USER.firstName} {DATA_SESSION_USER.lastName}
 					</h5>

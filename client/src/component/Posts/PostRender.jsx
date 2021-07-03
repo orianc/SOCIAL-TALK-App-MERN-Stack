@@ -76,7 +76,7 @@ export default function RecipeReviewCard(props) {
 							<div style={{ maxHeight: 210, boxShadow: '0px 0px 1px inset' }} className="mx-1 overflow-auto">
 								{p.comments.map((c) => (
 									<div className="bg-light com px-4 py-2 border">
-										<div className="row">
+										<div className="row justify-content-center">
 											<div className="col-4">
 												<Avatar src={'/uploads/' + c.userInformation.USER_PIC} aria-label="recipe" />
 												<Typography className="d-flex px-2 justify-content-center" align="center" variant="subtitle2">
