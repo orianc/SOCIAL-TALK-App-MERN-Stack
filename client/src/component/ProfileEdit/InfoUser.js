@@ -77,7 +77,7 @@ export default function UserInfo(props) {
 				});
 				if (user.email && user.pw && user.firstName && user.lastName) {
 					setOpen(true);
-					return (window.location.href = 'http://localhost:3000/profile');
+					return (window.location.href = '/profile');
 				}
 			}
 			return setOpenError(true);
@@ -110,7 +110,7 @@ export default function UserInfo(props) {
 				body: formData,
 			});
 			setOpen(true);
-			return (window.location.href = 'http://localhost:3000/profile-edit');
+			return (window.location.href = '/profile-edit');
 		} catch (error) {
 			setOpenError(true);
 			return console.error('Error saveImage() ', error);

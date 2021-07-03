@@ -23,7 +23,7 @@ export const RegisterForm = () => {
 					setUser(data.user);
 					setOpen(true);
 					setTimeout(() => {
-						window.location.href = 'http://localhost:3000/posts';
+						window.location.href = '/posts';
 					}, 2000);
 				});
 		} catch (error) {

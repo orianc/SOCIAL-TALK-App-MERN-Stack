@@ -96,7 +96,7 @@ router.post('/uploadAvatar', upload.single('picture'), (req, res, next) => {
 			});
 		});
 	} catch (error) {
-		res.redirect('http://localhost:3000');
+		// res.redirect('http://localhost:3000');
 		console.error('Session expire, Please reconnect : ', error);
 	}
 });

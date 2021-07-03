@@ -34,7 +34,7 @@ export default function Nav(props) {
 	const Logout = () => {
 		fetch('/api/auth/logout')
 			.then((res) => res.json())
-			.then((window.location.href = 'http://localhost:3000'));
+			.then((window.location.href = '/'));
 	};
 
 	const DATA_SESSION_USER = props.dataUser.session;

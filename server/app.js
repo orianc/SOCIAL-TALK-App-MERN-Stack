@@ -45,7 +45,7 @@ app.use(cookieParser('clé secrète', cookieParserOptions));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('../client/build'));
 
 app.use('/api/posts', postsRouter);
 app.use('/api/auth', authRouter);
@@ -55,6 +55,10 @@ app.use('/api/profile', profileRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
 	next(createError(404));
+});
+
+app.get('/*', (_, res) => {
+	res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
 // error handler

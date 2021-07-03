@@ -3,7 +3,7 @@ si une erreur parvient concernant react-script après le npm install :
 ```
 npm i
 // if react-script error :
-npm installer react-scripts --save
+npm install react-scripts --save
 ```
 
 from open a bash and :
