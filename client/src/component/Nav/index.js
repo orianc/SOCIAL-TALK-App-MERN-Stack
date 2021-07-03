@@ -24,7 +24,7 @@ export default function Nav(props) {
 	useEffect(() => {
 		try {
 			getPosts().then((posts) => {
-				setPost(posts); // fetched movies
+				setPost(posts);
 			});
 		} catch (error) {
 			console.error('Posts fill loading failed');

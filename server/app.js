@@ -45,7 +45,7 @@ app.use(cookieParser('clé secrète', cookieParserOptions));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static('../client/build'));
+app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 app.use('/api/posts', postsRouter);
 app.use('/api/auth', authRouter);
@@ -57,8 +57,9 @@ app.use(function (req, res, next) {
 	next(createError(404));
 });
 
-app.get('/*', (_, res) => {
-	res.sendFile(path.join(__dirname, '../client/build/index.html'));
+app.get('/*', (req, res) => {
+	let url = path.resolve(__dirname, '../client/build/index.html');
+	res.sendFile(url);
 });
 
 // error handler
