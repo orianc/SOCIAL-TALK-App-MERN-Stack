@@ -1,0 +1,15 @@
+.bg-light .MuiAvatar-img {
+	transform: scale(0.6);
+	border-radius: 40px;
+}
+.bg-light .MuiAvatar-root {
+	margin: 2px !important;
+}
+.bg-light .makeStyles-root-10 {
+	justify-content: center !important;
+}
+
+.com {
+	border-left: 0.2em solid #f50057 !important;
+	border-top: 5px solid white !important;
+}

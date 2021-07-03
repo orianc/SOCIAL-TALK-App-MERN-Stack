@@ -1,0 +1,23 @@
+.circle {
+	width: 95vw;
+	height: 100vh;
+	background-color: white;
+	position: absolute;
+	bottom: 0px;
+	left: 0;
+	z-index: 0;
+	border-radius: 0% 100% 100% 0%;
+}
+.bg-color {
+	z-index: -1;
+	background-color: #303f9f;
+}
+.slog {
+	color: #303f9f;
+}
+.ico {
+	color: #f50057;
+}
+.zind {
+	z-index: 3;
+}

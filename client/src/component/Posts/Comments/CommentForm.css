@@ -1,0 +1,7 @@
+.MuiInputAdornment-positionStart img {
+	transform: scale(0.6);
+	border-radius: 40px;
+}
+.MuiInputAdornment-positionStart .makeStyles-root-1 > * {
+	margin: 2px !important;
+}
