@@ -17,7 +17,7 @@ Social network with different essential functionality builded from scratch.
 
 Take a look on this gif demo :
 
-![Demo](demo-socialtalk.gif)
+<img src="demo-socialtalk.gif" alt="demogif" height="500"/>
 
 ## Next update in progress :
 
