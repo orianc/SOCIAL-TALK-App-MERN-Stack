@@ -15,7 +15,7 @@ const ProfileMain = () => {
 			.then((res) => res.json())
 			.then((data) => {
 				setUser(data.user);
-				console.log('restore log =', data.user);
+				console.log('Restore session success as ', data.user.user.firstName);
 			});
 	}
 

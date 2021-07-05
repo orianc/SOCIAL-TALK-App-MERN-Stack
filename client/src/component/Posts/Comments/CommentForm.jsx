@@ -32,9 +32,7 @@ const Comment = (props) => {
 		POST_ID,
 		COMMENT_CONTENT: null,
 	});
-	const [reset, setReset] = useState('');
 
-	// console.log(comment);
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
 			setOpenError(false);
@@ -84,7 +82,7 @@ const Comment = (props) => {
 					placeholder="Comment here..."
 					rows="2"
 					autoComplete="off"
-					inputProps={{ maxlength: '150' }}
+					inputProps={{ maxLength: '150' }}
 					startAdornment={
 						<InputAdornment className="mx-1" position="start">
 							<Avatar src={avatar} />

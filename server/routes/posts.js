@@ -42,42 +42,39 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/add-comment', async (req, res) => {
-	console.log('Method POST to add comment is asked');
+	try {
+		var POST_ID = await req.body.comment.POST_ID;
+		var CURRENT_POST = await collections.Posts.findById(POST_ID, (err, post) => {
+			if (!post) {
+				res.flash('error', 'No post');
+				return res.redirect('/posts');
+			}
 
-	var POST_ID = req.body.comment.POST_ID;
-	var CURRENT_POST = collections.Posts.findById(POST_ID, (err, post) => {
-		if (!post) {
-			res.flash('error', 'No post');
-			return res.redirect('/posts');
-		}
+			var USER_DATA = req.body.comment.DATA_USER;
+			var USER_ID = USER_DATA._id;
+			var USER_PIC = USER_DATA.picture;
+			var USER_FIRST_NAME = USER_DATA.firstName;
+			var USER_LAST_NAME = USER_DATA.lastName;
+			var COMMENT_CONTENT = req.body.comment.COMMENT_CONTENT.trim();
 
-		var USER_DATA = req.body.comment.DATA_USER;
-		var USER_ID = USER_DATA._id;
-		var USER_PIC = USER_DATA.picture;
-		var USER_FIRST_NAME = USER_DATA.firstName;
-		var USER_LAST_NAME = USER_DATA.lastName;
-		var COMMENT_CONTENT = req.body.comment.COMMENT_CONTENT.trim();
-
-		const newComment = {
-			userInformation: {
-				USER_ID,
-				USER_PIC,
-				USER_FIRST_NAME,
-				USER_LAST_NAME,
-			},
-			comment_content: COMMENT_CONTENT,
-		};
-		post.comments.push(newComment);
-		post.save().then(() => {
-			res.send({ result: newComment }).then(() => res.redirect('/posts'));
+			const newComment = {
+				userInformation: {
+					USER_ID,
+					USER_PIC,
+					USER_FIRST_NAME,
+					USER_LAST_NAME,
+				},
+				comment_content: COMMENT_CONTENT,
+			};
+			post.comments.push(newComment);
+			post.save().then(() => {
+				res.send({ result: newComment }).then(() => res.redirect('/posts'));
+			});
 		});
-		//To do :  Manage redirect issue.
-	});
-
-	// } catch (error) {
-	// 	console.error('New post creation failed', error);
-	// 	res.status(500).send('Post creation error');
-	// }
+	} catch (error) {
+		console.error('add-comment failed ', error);
+		return res.status(500).send('Post creation error');
+	}
 });
 
 module.exports = router;

@@ -13,7 +13,6 @@ const ProfileMain = () => {
 			.then((res) => res.json())
 			.then((data) => setUser(data.user));
 	}
-	console.log('dataUser', dataUser);
 
 	if (dataUser == null) {
 		return <div>Profil loading..</div>;

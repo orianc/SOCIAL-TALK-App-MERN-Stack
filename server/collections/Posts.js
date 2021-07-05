@@ -15,15 +15,6 @@ const PostSchema = new Schema({
 	},
 	comments: [],
 });
-// {
-// 	_id: { type: Number, require: true },
-// 	content: { type: String },
-// 	userInformation: {
-// 		_id: { type: Number },
-// 		firstName: { type: String },
-// 		lastName: { type: String },
-// 	},
-// },
 
 PostSchema.plugin(autoIncrement.plugin, 'Post');
 PostSchema.plugin(mongooseLeanId);

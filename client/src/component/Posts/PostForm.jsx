@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { CircularProgress, Snackbar } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import { UserContext } from '../../middleware/context/context';
 import Avatar from '../ProfileCard/Avatar';
 
 const Post = (props) => {
-	const DATA_SESSION_USER = props.dataUser;
+	const DATA_SESSION_USER = useContext(UserContext);
 	const [open, setOpen] = useState(false);
 	const [openError, setOpenError] = useState(false);
 
@@ -73,7 +74,7 @@ const Post = (props) => {
 					></textarea>
 					<button onClick={handlerNewPost} type="submit" className="btn btn-sm text-primary">
 						Post
-						<span class="material-icons">send</span>
+						<span className="material-icons">send</span>
 					</button>
 				</div>
 			</div>

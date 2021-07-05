@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
+// url to local data base.
 const mongoDbUrl = 'mongodb://localhost/socialtalk-db';
+// url to cloud data base.
 const mongoDbUrlAtlas = 'mongodb+srv://dev:socialtalk@socialtalk.jqf6c.mongodb.net/DB_SocialTalk?retryWrites=true&w=majority';
 const db = mongoose.connection;
 
@@ -21,24 +23,3 @@ function start(db) {
 	collections.Users = require('./Users')(db);
 }
 module.exports = collections;
-
-// const connection = mongoose.connect(
-// 	mongoDbUrl,
-// 	{
-// 		useNewUrlParser: true,
-// 		useFindAndModify: false,
-// 		useCreateIndex: true,
-// 		useUnifiedTopology: true,
-// 	},
-// 	(err) => {
-// 		if (err) {
-// 			console.error('MongoDB connection error: ', err);
-// 			// setTimeout( function(){ tryConnect(); }, 1000 );
-// 		} else {
-// 			console.log('MongoDB connexion Success');
-
-// 			// afterConnection();
-// 			// TODO updater l'objet connection dans les collections ?
-// 		}
-// 	},
-// );

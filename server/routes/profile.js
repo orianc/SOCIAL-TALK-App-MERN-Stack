@@ -5,20 +5,6 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-/**
- * get all post
- */
-// router.get('/get-profile', async (req, res, next) => {
-// 	try {
-// 		const USER_SESSION = await req.session.user;
-// 		const USER_ID = USER_SESSION._id;
-// 		console.log('userSession = ', USER_ID);
-// 		res.send(USER_SESSION);
-// 	} catch (error) {
-// 		console.error('fail to get session user : ', error);
-// 		res.status(500)('Error ');
-// 	}
-// });
 var currentDate = new Date();
 var dateString = currentDate.toDateString();
 var cleanDate = dateString.replace(/\s/g, '-');
@@ -61,8 +47,6 @@ router.post('/edit', async (req, res, next) => {
 					res.send({ user: req.session.user });
 				});
 			});
-			// user.save();
-			//To do :  Manage redirect issue.
 		});
 	} catch (error) {
 		console.error('fail to get session user : ', error);
@@ -74,9 +58,7 @@ router.post('/uploadAvatar', upload.single('picture'), (req, res, next) => {
 	try {
 		const USER_SESSION_CHANGE = req.session.user;
 		console.log('isLogged ?', USER_SESSION_CHANGE);
-		// if (USER_SESSION_CHANGE === undefined) {
-		// 	res.redirect('/');
-		// }
+
 		const USER_CURRENT_DB = collections.Users.findById(USER_SESSION_CHANGE._id, (err, user) => {
 			console.log('USER FIND =', user);
 			if (!user) {
@@ -90,13 +72,10 @@ router.post('/uploadAvatar', upload.single('picture'), (req, res, next) => {
 				req.session.user = user.toObject();
 				req.session.save(() => {
 					res.redirect('profile/edit');
-
-					// res.send({ user: req.session.user });
 				});
 			});
 		});
 	} catch (error) {
-		// res.redirect('http://localhost:3000');
 		console.error('Session expire, Please reconnect : ', error);
 	}
 });

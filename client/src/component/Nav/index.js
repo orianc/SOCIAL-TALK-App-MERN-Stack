@@ -37,8 +37,6 @@ export default function Nav(props) {
 			.then((window.location.href = '/'));
 	};
 
-	const DATA_SESSION_USER = props.dataUser.session;
-	const avatar = '/uploads/' + DATA_SESSION_USER.picture;
 	return (
 		<Router>
 			<nav className="navbar navbar-expand-lg bg-white sticky-top">
@@ -86,8 +84,6 @@ export default function Nav(props) {
 								</div>
 								<Link className="col-12 nav-link" to="/profile">
 									<Profile />
-									{/* <Avatar src={avatar} className="justify-content-center"></Avatar>
-									{DATA_SESSION_USER.firstName} {DATA_SESSION_USER.lastName} */}
 								</Link>
 							</div>
 						</div>
@@ -98,7 +94,7 @@ export default function Nav(props) {
 			<Switch>
 				<Route path="/posts">
 					<PostsContext.Provider value={posts}>
-						<PostMain dataUser={DATA_SESSION_USER} />
+						<PostMain />
 					</PostsContext.Provider>
 				</Route>
 				<Route path="/profile">
